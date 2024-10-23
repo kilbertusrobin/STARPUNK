@@ -1,0 +1,100 @@
+.container-rs{
+    height: 90vh;
+    width: fit-content;
+    position: relative;
+}
+
+img{
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    
+}
+
+.inside-rs{
+    background-color: white;
+    position: absolute;
+    border-radius: 10px;
+    height: 73%;
+    width: 70%;
+    top: 47%;
+    right: 16%;
+    transform: translateY(-50%);
+    overflow-y: scroll;   /* Permet le scroll vertical uniquement */
+    overflow-x: hidden;
+    scrollbar-width:none;
+    -webkit-box-shadow:0px 0px 42px 0px #F39200;
+-moz-box-shadow: 0px 0px 42px 0px #F39200;
+box-shadow: 0px 0px 42px 0px #F39200;
+}
+
+.wrapper-post{
+    width: 100%;
+    height: fit-content;
+    border: 1px solid black;
+    max-height: 100%;
+    display: flex;
+    flex-direction: column;
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+.wrapper-like{
+    width: auto;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 10px;
+}
+.like-button{
+    height: 4vh;
+    width: auto;
+}
+.post-title{
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+.like-count{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.modal {
+    display: flex; /* Pour centrer le contenu */
+    position: fixed; /* Fixe la position */
+    z-index: 1000; /* Au-dessus de tout le contenu */
+    left: 0;
+    top: 0;
+    width: 100%; /* Prend toute la largeur */
+    height: 100%; /* Prend toute la hauteur */
+    background-color: rgba(0, 0, 0, 0.8); /* Fond semi-transparent */
+    justify-content: center; /* Centre horizontalement */
+    align-items: center; /* Centre verticalement */
+  }
+  
+  .modal-content {
+    position: relative; /* Pour placer le bouton de fermeture */
+    max-width: 90%; /* Limite la largeur de l'image */
+    max-height: 90%; /* Limite la hauteur de l'image */
+  }
+  
+  .modal-image {
+    max-width: 100%; /* L'image s'adapte à la largeur du conteneur */
+    max-height: 90vh; /* Maintient le ratio d'aspect */
+  }
+  
+  .close {
+    position: absolute; /* Positionne le bouton de fermeture en haut à droite */
+    top: 20px;
+    right: 20px;
+    color: white; /* Couleur du texte du bouton */
+    font-size: 30px; /* Taille du bouton de fermeture */
+    cursor: pointer; /* Curseur de pointeur */
+  }
+  .close-orange-cross{
+    width: 3vw;
+    height: auto;
+  }
+  body{
+    background-color: rgb(22, 21, 21);
+  }
+  
