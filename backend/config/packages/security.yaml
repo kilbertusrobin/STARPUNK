@@ -5,27 +5,47 @@ security:
 
     # Fournisseur d'utilisateurs
     providers:
-        users_in_memory: { memory: null }
-        users_from_database:
+        app_user_provider:
             entity:
                 class: App\Entity\User
                 property: email
 
     firewalls:
-        dev:
-            pattern: ^/(_(profiler|wdt)|css|images|js)/
-            security: false
+        login:
+            pattern: ^/api/login
+            stateless: true
+            provider: app_user_provider
+            json_login:
+                username_path: email
+                check_path: /api/login_check
+                success_handler: 
+                    lexik_jwt_authentication.handler.authentication_success
+                failure_handler: 
+                    lexik_jwt_authentication.handler.authentication_failure
 
         api:
             pattern: ^/api
             stateless: true
-            provider: users_from_database # Spécifiez le provider ici
             jwt: ~
+
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
 
     # Contrôle d'accès
     access_control:
-        - { path: ^/api/users/create, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/api, roles: ROLE_USER }
+        - { path: /api/users/create, roles: ROLE_USER }
+        - { path: /api/users, roles: ROLE_USER }
+        - { path: /api/users/read/\d+, roles: ROLE_USER }
+
+        - { path: /api, roles: ROLE_USER }
+
+        - { path: /api/images/validate, roles: ROLE_ADMIN }
+        - { path: /api/images/create , roles: ROLE_USER }
+        - { path: /api/images/read/\d+, roles: ROLE_USER }
+        - { path: /api/images , roles: ROLE_USER }
+        - { path: /api/images/delete , roles: ROLE_ADMIN }
+
 
 when@test:
     security:

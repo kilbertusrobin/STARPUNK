@@ -1,0 +1,22 @@
+meta {
+  name: ValidateImage
+  type: http
+  seq: 10
+}
+
+post {
+  url: http://localhost:8000/api/images/validate
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE3Mjk2ODY3MjIsImV4cCI6MTcyOTY5MDMyMiwicm9sZXMiOlsiUk9MRV9VU0VSIiwiUk9MRV9BRE1JTiJdLCJlbWFpbCI6IlJvYmxlWm9iQHpvYi5jb20ifQ.V19zZ0Iq_AHPX6GGIu4BdwqF2r5pN__O3JPTi99xrC1fKJelHpb9ZKVtrT281I6aed0qdVzjgML4Up2R4VAULCJ2gMm5BYzo89HE68vkXBEjLUxPXtUp77gsd75LwPlLHUwZRKq9aU0pJalMuZOXvrR0s7tYO1DAwkze8J-3VnGaKhGBIT0I6PpKALc4UY2i9COhCmBhNh_wtAyGpbph9KajH5WVHNx1aMUnqXqCv2KP26iQSL1pw8Sj2UR7L4VNBp8FEzyhX6X7B2sUeG4z4xrSAnMX_5FDUN_HtEbwE--NSQHVmdW2daU4itm_G8GLxNE-1Dcbmoc-nrpefE8xBQ
+}
+
+body:json {
+  {
+    "id" : "1"
+    
+  }
+}

@@ -1,0 +1,19 @@
+meta {
+  name: CreateImage
+  type: http
+  seq: 12
+}
+
+post {
+  url: http://localhost:8000/api/images/create
+  body: multipartForm
+  auth: bearer
+}
+
+auth:bearer {
+  token: eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE3Mjk2OTA5NjMsImV4cCI6MTcyOTY5NDU2Mywicm9sZXMiOlsiUk9MRV9VU0VSIiwiUk9MRV9BRE1JTiJdLCJlbWFpbCI6IlJvYmxlWm9iQHpvYi5jb20ifQ.YByxQdlgl4e41wpx7E7dGbq8DaxrGtXsAz4lZXMIOOZN9YQ9cEVSufJlPGURZckurwI660-hq4-DVyOkNiOqtZOZlfsGjkcmW7yaSTWx_KuzEKG5oT3geWmQjJTLO6tLu2lKdMkjX4Z47q-1CX24MrODq5EIvz2AqIkmJWRFezVuHcuA7mDeph0BEwSNz1Dgymhu4xpuF07vQRW9WOrRwnz0e5hSiWAQ99F64zp2nsnYCO5p3otbUAcUKsFvRt8G8rZdqPbVwKvqoas1Nvth-VkQR7gS1YEw2cK451jxRTUMgp6GecaSYumRHzwbIQQyvViBZ7cd42So2OVZgJFqEg
+}
+
+body:multipart-form {
+  image: @file(C:\Users\rbxfa\Downloads\b3eaae1fdde0885770aaf3eea5138623.jpg)
+}
