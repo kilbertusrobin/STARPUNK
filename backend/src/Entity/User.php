@@ -16,15 +16,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    #[Groups(['list_user'])]
+    #[Groups(['list_user', 'list_image'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    #[Groups(['list_user'])]
+    #[Groups(['list_user', 'list_image'])]
     private ?string $username = null;
 
     #[ORM\Column(length: 255)]
-    #[Groups(['list_user'])]
+    #[Groups(['list_user', 'list_image'])]
     private ?string $email = null;
 
     #[ORM\Column(length: 255)]
@@ -33,6 +33,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: Types::JSON)]
     #[JMS\Groups(['list_user'])]
     private array $roles = [];
+
+    /**
+     * @var Collection<int, Image>
+     */
+    #[ORM\OneToMany(targetEntity: Image::class, mappedBy: 'user')]
+    private Collection $images;
+
+    public function __construct()
+    {
+        $this->images = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -100,5 +111,35 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function getUserIdentifier(): string
     {
         return $this->username;
+    }
+
+    /**
+     * @return Collection<int, Image>
+     */
+    public function getImages(): Collection
+    {
+        return $this->images;
+    }
+
+    public function addImage(Image $image): static
+    {
+        if (!$this->images->contains($image)) {
+            $this->images->add($image);
+            $image->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeImage(Image $image): static
+    {
+        if ($this->images->removeElement($image)) {
+            // set the owning side to null (unless already changed)
+            if ($image->getUser() === $this) {
+                $image->setUser(null);
+            }
+        }
+
+        return $this;
     }
 }

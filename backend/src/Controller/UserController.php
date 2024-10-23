@@ -24,6 +24,9 @@ class UserController extends ApiController
     #[Route('', name: 'list', methods: ['GET'])]
     public function list(): Response
     {
+        if (!$this->isGranted('ROLE_USER')) {
+            throw $this->createAccessDeniedException();
+        }
         try {
             return $this->userService->list();
         } catch (\Exception $e) {
@@ -34,6 +37,9 @@ class UserController extends ApiController
     #[Route('/read/{id}', name: 'read', methods: ['GET'])] 
     public function read(Request $request): Response
     {
+        if (!$this->isGranted('ROLE_USER')) {
+            throw $this->createAccessDeniedException();
+        }
         try {
             $id = $request->attributes->get('id');
             return $this->userService->read($id);
@@ -45,6 +51,9 @@ class UserController extends ApiController
     #[Route('/create', name: 'create', methods: ['POST'])]
     public function create(Request $request): Response
     {
+        if (!$this->isGranted('ROLE_USER')) {
+            throw $this->createAccessDeniedException();
+        }
         try {
             return $this->userService->create($request->getContent());
         } catch (\Exception $e) {
