@@ -1,0 +1,15 @@
+meta {
+  name: ListArticles
+  type: http
+  seq: 1
+}
+
+get {
+  url: http://localhost:8000/api/articles
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE3MzE1MTI2NzYsImV4cCI6MTczMTUxNjI3Niwicm9sZXMiOlsiUk9MRV9VU0VSIiwiUk9MRV9BRE1JTiJdLCJlbWFpbCI6IlJvYmxlWm9iQHpvYi5jb20ifQ.EENmO3QHq9ZcvQ_G_M8j6jD3K6qyBArAwcJL_CpSbi7noVrQOAM7WY_afL3IFcb6-dpNRwLqA-PtTY_QYGis5h72KPiUhyrLLvvwHGs3PUZzwO7ejWqWR5iUcf71k7AdhOAwA3e2IKsd2SHpTIc_yFcMXgnoflJmOSEBHwJ0CHzGst2nqeVYw9RnFoh6-ZRNLZHKTFzooDwlTZ2TEqpsb8mqPx3amptJLbbKSd2dY-pw8U7gnrcJOoTPYKP6UJd_z_ZheEa6gl4JmTf7xT1uTD6ngrYh0S7wIWJ36kZ519qOUJSvNGb3pQuDQwO9V2cjKO5NkkKkQSdxY9ScikJaTQ
+}
