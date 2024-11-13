@@ -65,22 +65,22 @@ class UserService
     public function create(Request $request): JsonResponse
     {
         try {
-            $uploadedFile = $request->files->get('profile_pic');
+            //$uploadedFile = $request->files->get('profile_pic');
 
-            if (!$uploadedFile) {
-                return new JsonResponse("Aucune photo de profil envoyée", Response::HTTP_BAD_REQUEST);
-            }
+            //if (!$uploadedFile) {
+                //return new JsonResponse("Aucune photo de profil envoyée", Response::HTTP_BAD_REQUEST);
+            //}
 
-            if (!$uploadedFile->isValid()) {
-                return new JsonResponse("Le fichier de la photo de profil est invalide", Response::HTTP_BAD_REQUEST);
-            }
+            //if (!$uploadedFile->isValid()) {
+                //return new JsonResponse("Le fichier de la photo de profil est invalide", Response::HTTP_BAD_REQUEST);
+            //}
 
-            $filename = uniqid() . '.' . $uploadedFile->guessExtension();
+            //$filename = uniqid() . '.' . $uploadedFile->guessExtension();
 
-            $uploadedFile->move(
-                'uploads/profile/',
-                $filename
-            );
+            //$uploadedFile->move(
+            //    'uploads/profile/',
+            //    $filename
+            //);
 
             $username = $request->request->get('username');
             $email = $request->request->get('email');
@@ -95,7 +95,8 @@ class UserService
             $user->setEmail($email);
             $user->setPassword($this->passwordHasher->hashPassword($user, $password));
             $user->setRoles(['ROLE_USER']);
-            $user->setProfilePic("http://localhost:8000/uploads/profile/" . $filename);
+            $user->setProfilePic("http://localhost:8000/uploads/profile/pp.png");
+            //$user->setProfilePic("http://localhost:8000/uploads/profile/" . $filename);
 
             $this->userRepository->save($user, true);
 
