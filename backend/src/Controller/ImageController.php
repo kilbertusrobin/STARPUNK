@@ -57,14 +57,15 @@ class ImageController extends AbstractController
         }
     }
 
-    #[Route('/validate', name:'validate', methods: ['POST'])]
+    #[Route('/validate', name: 'validate', methods: ['POST'])]
     public function validate(Request $request): Response
     {
         if (!$this->isGranted('ROLE_ADMIN')) {
             throw new AccessDeniedException();
         }
         try {
-            return $this->imageService->validate($request->getContent());
+            $data = json_decode($request->getContent(), true);
+            return $this->imageService->validate($data);
         } catch (\Exception $e) {
             return new JsonResponse($e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
         }
@@ -96,8 +97,9 @@ class ImageController extends AbstractController
         }
 
         $decodedJwtToken = $this->jwtManager->decode($token);
-        
+
         $file = $request->files->get('image');
+        $data = $request->request->all();
         if (!$file) {
             return new JsonResponse("No file uploaded.", Response::HTTP_BAD_REQUEST);
         }
@@ -108,9 +110,34 @@ class ImageController extends AbstractController
         }
 
         try {
-            return $this->imageService->create($file, $user);
+            return $this->imageService->create($file, $user, $data);
         } catch (\Exception $e) {
             return new JsonResponse($e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
         }
+    }
+
+    #[Route('/toggleLike', name:'toggleLike', methods: ['POST'])]
+    public function toggleLike(Request $request): Response {
+
+        if (!$this->isGranted('ROLE_USER')) {
+            throw new AccessDeniedException();
+        }
+
+        $token = $this->tokenStorage->getToken();
+        if ($token === null) {
+            return new JsonResponse("Token not provided.", Response::HTTP_UNAUTHORIZED);
+        }
+
+        $decodedJwtToken = $this->jwtManager->decode($token);
+
+        $user = $this->entityManager->getRepository(User::class)->findOneBy(['email' => $decodedJwtToken['email']]);
+
+        if (!$user) {
+            return new JsonResponse("User not found.", Response::HTTP_NOT_FOUND);
+        }
+
+        $data = json_decode($request->getContent(), true);
+
+        return $this->imageService->toggleLike($data, $user);
     }
 }

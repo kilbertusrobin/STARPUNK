@@ -51,11 +51,8 @@ class UserController extends ApiController
     #[Route('/create', name: 'create', methods: ['POST'])]
     public function create(Request $request): Response
     {
-        if (!$this->isGranted('ROLE_USER')) {
-            throw $this->createAccessDeniedException();
-        }
         try {
-            return $this->userService->create($request->getContent());
+            return $this->userService->create($request);
         } catch (\Exception $e) {
             return new JsonResponse($e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
         }

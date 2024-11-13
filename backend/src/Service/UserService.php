@@ -7,6 +7,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use JMS\Serializer\SerializerInterface;
 use JMS\Serializer\SerializationContext;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use App\Entity\User;
 
@@ -51,6 +52,7 @@ class UserService
             $userDetails = [
                 'id' => $entity->getId(),
                 'username' => $entity->getUsername(),
+                'profile_pic' => $entity->getProfilePic(),
                 'email' => $entity->getEmail(),
                 'roles' => $entity->getRoles()
             ];
@@ -60,25 +62,40 @@ class UserService
         }
     }
 
-    public function create($data): JsonResponse
+    public function create(Request $request): JsonResponse
     {
         try {
-            if (is_string($data)) {
-                $data = json_decode($data, true);
+            $uploadedFile = $request->files->get('profile_pic');
+
+            if (!$uploadedFile) {
+                return new JsonResponse("Aucune photo de profil envoyée", Response::HTTP_BAD_REQUEST);
             }
 
-            if (!isset($data['username'], $data['email'], $data['password'])) {
+            if (!$uploadedFile->isValid()) {
+                return new JsonResponse("Le fichier de la photo de profil est invalide", Response::HTTP_BAD_REQUEST);
+            }
+
+            $filename = uniqid() . '.' . $uploadedFile->guessExtension();
+
+            $uploadedFile->move(
+                'uploads/profile/',
+                $filename
+            );
+
+            $username = $request->request->get('username');
+            $email = $request->request->get('email');
+            $password = $request->request->get('password');
+
+            if (!$username || !$email || !$password) {
                 return new JsonResponse("Données utilisateur incomplètes", Response::HTTP_BAD_REQUEST);
             }
 
             $user = new User();
-            $user->setUsername($data['username']);
-            $user->setEmail($data['email']);
-
-            $hashedPassword = $this->passwordHasher->hashPassword($user, $data['password']);
-            $user->setPassword($hashedPassword);
-            
+            $user->setUsername($username);
+            $user->setEmail($email);
+            $user->setPassword($this->passwordHasher->hashPassword($user, $password));
             $user->setRoles(['ROLE_USER']);
+            $user->setProfilePic("http://localhost:8000/uploads/profile/" . $filename);
 
             $this->userRepository->save($user, true);
 
@@ -87,4 +104,6 @@ class UserService
             return new JsonResponse($e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
+
+    
 }

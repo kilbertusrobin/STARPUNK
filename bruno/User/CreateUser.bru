@@ -6,12 +6,12 @@ meta {
 
 post {
   url: http://localhost:8000/api/users/create
-  body: json
+  body: multipartForm
   auth: bearer
 }
 
 auth:bearer {
-  token: eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE3Mjk2ODQ3NjcsImV4cCI6MTcyOTY4ODM2Nywicm9sZXMiOlsiUk9MRV9VU0VSIiwiUk9MRV9BRE1JTiJdLCJlbWFpbCI6IlJvYmxlWm9iQHpvYi5jb20ifQ.Yh2PSm9gxKDHTnkOITSpiM6yJ0LyijGOAB1ERkQwLSpxbMnkDt7aDwzjfcKCRjuw7GhZEWXtIVKUpx6kbgkJdvt1AraajK3eN6MB-da_9HsSlqOR2UlwAH9et0caNztwNOmf7iSIFbpWpChC-aQGdCmCPgr4qjJeFq7kN9sbdC761H5hayT0XyE6o_-ySFdOxHbAe-uR1adKwrXgFK-auNpjAc1oEN5jnhm3vZ8wxt5ti0upqsa12xHYyvjy1bzt8jEGLNI588pbcoqOWcJBaimGeBeiexeGBLkwFb5ivUytHAOPNEHEaX8GHC9-G_eacnv-YiqbyzT3LHIPuVeqRA
+  token: 
 }
 
 body:json {
@@ -21,4 +21,11 @@ body:json {
     "password": "amedia"
   }
   
+}
+
+body:multipart-form {
+  username: RobUser
+  email: RobUser@zob.com
+  password: amedia
+  profile_pic: @file(C:\Users\rbxfa\Downloads\Screenshot_20241024-160922.jpg)
 }

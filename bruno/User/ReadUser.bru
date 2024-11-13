@@ -5,7 +5,11 @@ meta {
 }
 
 get {
-  url: http://localhost:8000/api/users/read/4
+  url: http://localhost:8000/api/users/read/10
   body: none
-  auth: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE3MzE0OTYzOTgsImV4cCI6MTczMTQ5OTk5OCwicm9sZXMiOlsiUk9MRV9VU0VSIiwiUk9MRV9BRE1JTiJdLCJlbWFpbCI6IlJvYmxlWm9iQHpvYi5jb20ifQ.cJvkxYK2bMKOzZkZrLIKDyEtJQ-Ug1YGipOKt7RQBC0D6Dt8qE33rJHkH81RuUh66CTt0TLE4A26NLnlKHA9yXoTp-LYEA99U9XBmy-xW_x1-RCuKfN55M2mgaUgfpmlL30eNkII0t4BD8k7j1t1FSKfqbjm4ChwY-gX5hExMCDQuVHngs3hc5dkyaZurUao9W-g4Zhfo1dtRcIfAGyroltk6HF0dmCuFZFL1YEV_6cwksY2HJD39ktEw7VZsLCDlnmxGdCIHHqnRFNJ4sD1nR0fgR53Lmvf5F22uYMCIJpovddSR2FfDPQTga2S-7Xl6Uaq3Sx90DLsIs1WWxY1mA
 }

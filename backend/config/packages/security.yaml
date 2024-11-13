@@ -32,19 +32,6 @@ security:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
 
-    # Contrôle d'accès
-    access_control:
-        - { path: /api/users/create, roles: ROLE_USER }
-        - { path: /api/users, roles: ROLE_USER }
-        - { path: /api/users/read/\d+, roles: ROLE_USER }
-
-        - { path: /api, roles: ROLE_USER }
-
-        - { path: /api/images/validate, roles: ROLE_ADMIN }
-        - { path: /api/images/create , roles: ROLE_USER }
-        - { path: /api/images/read/\d+, roles: ROLE_USER }
-        - { path: /api/images , roles: ROLE_USER }
-        - { path: /api/images/delete , roles: ROLE_ADMIN }
 
 
 when@test:
