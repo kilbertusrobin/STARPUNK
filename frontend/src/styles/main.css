@@ -2,6 +2,18 @@
     --primary-color: #3498db;
     --secondary-color: #2ecc71;
     --font-size-base: 16px;
-    --font-family-base: 'Arial, sans-serif';
+    --font-family-base: 'Montserrat';
+    
   }
-  
+  body{
+    overflow-x: hidden;
+    font-family: var(--font-family-base);
+    color:white;
+  }
+.background {
+    background-image: url('./images-post/background.jpg');
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+    width: 100%;
+}

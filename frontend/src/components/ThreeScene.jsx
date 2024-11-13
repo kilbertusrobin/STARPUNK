@@ -12,6 +12,11 @@ const ThreeScene = () => {
   useEffect(() => {
     // Création de la scène
     const scene = new THREE.Scene();
+    // Charger l'image de fond
+  const loaderbg = new THREE.TextureLoader();
+  loaderbg.load('./images-post/background.jpg', (texture) => {
+    scene.background = texture; // Applique la texture comme arrière-plan
+  });
 
     // Création de la caméra
     const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
@@ -27,18 +32,9 @@ const ThreeScene = () => {
     const ambientLight = new THREE.AmbientLight(0x404040, 100); // lumière ambiante, intensité 10
     scene.add(ambientLight);
 
-    // Ajouter des lumières de point autour du modèle
-    const pointLights = [
-      { position: [5, 5, 5], intensity: 5 },
-      { position: [-5, 5, 5], intensity: 5 },
-      { position: [5, -5, 5], intensity: 5 },
-      { position: [-5, -5, 5], intensity: 5 }
-    ];
-    pointLights.forEach(light => {
-      const pointLight = new THREE.PointLight(0xffffff, light.intensity, 50);
-      pointLight.position.set(...light.position);
-      scene.add(pointLight);
-    });
+    
+  
+
 
     // Charger le modèle 3D
     const loader = new GLTFLoader();
@@ -121,14 +117,7 @@ const ThreeScene = () => {
 
   return (
     <>
-      {/* Zoom Buttons */}
-      <button onClick={() => cameraRef.current.position.z -= 1} style={{ position: 'absolute', top: '10px', left: '10px', zIndex: 1000 }}>
-        Zoom Avant
-      </button>
-      <button onClick={() => cameraRef.current.position.z += 1} style={{ position: 'absolute', top: '40px', left: '10px', zIndex: 1000 }}>
-        Zoom Arrière
-      </button>
-
+     
       {/* Modale spécifique au point cliqué */}
       {selectedPoint && (
         <div className="modal">
