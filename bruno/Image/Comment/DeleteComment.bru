@@ -1,0 +1,21 @@
+meta {
+  name: DeleteComment
+  type: http
+  seq: 2
+}
+
+delete {
+  url: http://localhost:8000/api/images/deleteComment
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE3MzE1MDY1NTAsImV4cCI6MTczMTUxMDE1MCwicm9sZXMiOlsiUk9MRV9VU0VSIiwiUk9MRV9BRE1JTiJdLCJlbWFpbCI6IlJvYmxlWm9iQHpvYi5jb20ifQ.byvbD-bCXMS1H1PNfHe42_sH8F6aTYR-1lK2AoqM-t9gD5TI0NPqb342DFzHEMYXIXlzQ1gVY5dl_WNcILRBAdk0frq9pn-yaCbGJdjT9MgZdkxFMQXTDZiEL70s-gjTJSg1xKnf4DDRSim32eolmEjdjn1i1Bt7L7czzj3zKBpWDv2yn2-lb_omi3VCRKT9FeMzc9c4hRs8krJzl6VuZww3Ltuh_V61iVo5DQ_jSX-7QFLpX6Lq3EQ8ox2wgex77FbC-P88upFeDoBAESneitk-m5sLOluGpeSy05nuifFdC6oh5KL3ZFoRBHppAQziZixAiwXKJRhgkC0bSF_wxw
+}
+
+body:json {
+  {
+    "id" : "5"
+  }
+}

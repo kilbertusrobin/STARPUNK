@@ -1,0 +1,21 @@
+meta {
+  name: toggleLike
+  type: http
+  seq: 1
+}
+
+post {
+  url: http://localhost:8000/api/images/toggleLike
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE3MzE1MDQ4MTksImV4cCI6MTczMTUwODQxOSwicm9sZXMiOlsiUk9MRV9VU0VSIl0sImVtYWlsIjoiUm9iVXNlckB6b2IuY29tIn0.WbBXkXMnTaEZBrGiRpbP8SbbGrLNBGto2vBz1h4L5L0K7H42X52lCPtaObm48Muwuukyv0qdnARNMv3VE8SVIa0zl-jw_HMTo4Yu41aXRpPmK35Wt0cPWl-5v581SFXqD_jDZVoaFp9uYT_ojuOw854ASM57eAQKlBEIEBqoBU8FZYL2ep7NfiL3KzNF9CX_PqwSnR2lXbPZsSYEQ9JTlWh0qrPokwdShib8kQLt0qxZv5O4KC3Fx7fSeWavZioKrz2ISWGbxa8I3rXh6dmvmP5FP09-8OxP97LKj332w16pDK8L4_u0x_p4SYUPtBd4rIgsM3nt0TX0edd8NZaY-A
+}
+
+body:json {
+  {
+    "idImg" : "9"
+  }
+}

@@ -4,6 +4,7 @@ namespace App\Service;
 
 use App\Repository\ImageRepository;
 use App\Repository\LikeRepository;
+use App\Repository\CommentRepository;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
@@ -11,23 +12,27 @@ use JMS\Serializer\SerializerInterface;
 use JMS\Serializer\SerializationContext;
 use App\Entity\Like;
 use App\Entity\User;
+use App\Entity\Comment;
 use App\Entity\Image;
 use Doctrine\ORM\EntityManagerInterface;
 
 class ImageService
 {
     private ImageRepository $imageRepository;
+    private CommentRepository $commentRepository;
     private LikeRepository $likeRepository;
     private SerializerInterface $jmsSerializer;
     private EntityManagerInterface $entityManager;
 
     public function __construct(
         ImageRepository $imageRepository,
+        CommentRepository $commentRepository,
         LikeRepository $likeRepository,
         SerializerInterface $jmsSerializer,
         EntityManagerInterface $entityManager
     ) {
         $this->imageRepository = $imageRepository;
+        $this->commentRepository = $commentRepository;
         $this->likeRepository = $likeRepository;
         $this->jmsSerializer = $jmsSerializer;
         $this->entityManager = $entityManager;
@@ -53,29 +58,41 @@ class ImageService
     {
         try {
             $entity = $this->imageRepository->find($id);
-
+    
             if (!$entity) {
                 return new JsonResponse("Entité non trouvée", Response::HTTP_NOT_FOUND);
             }
-            
-
+    
+            $comments = [];
+            foreach ($entity->getComments() as $comment) {
+                $comments[] = [
+                    'author' => $comment->getAuthor()->getUsername(),
+                    'profilePic' => $comment->getAuthor()->getProfilePic(),
+                    'content' => $comment->getContent(),
+                    'createdAt' => $comment->getCreatedAt()
+                ];
+            }
+    
             $imageDetails = [
                 'id' => $entity->getId(),
                 'url' => $entity->getUrl(),
                 'status' => $entity->isStatus(),
                 'nbLikes' => count($entity->getLikes()),
-                'user' => $entity->getUser() ? [
+                'Author' => $entity->getUser() ? [
                     'id' => $entity->getUser()->getId(),
                     'username' => $entity->getUser()->getUsername(),
                     'email' => $entity->getUser()->getEmail(),
                     'roles' => $entity->getUser()->getRoles()
                 ] : null,
+                'comments' => $comments
             ];
+    
             return new JsonResponse($imageDetails, Response::HTTP_OK);
         } catch (\Exception $e) {
             return new JsonResponse($e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
+    
 
 
 
@@ -163,5 +180,47 @@ class ImageService
             return new JsonResponse("Like ajouté", Response::HTTP_OK);
         }
     }
+
+    public function newComment(array $data, User $user): JsonResponse
+    {
+        $img = $this->imageRepository->find($data['idImg']);
+        if (!$img) {
+            return new JsonResponse("Image non trouvée", Response::HTTP_NOT_FOUND);
+        }
+    
+        $comment = new Comment();
+
+        if (isset($data['parentCommentId']) && $data['parentCommentId']) {
+            $parent = $this->commentRepository->find($data['parentCommentId']);
+            if ($parent) {
+                $comment->setParent($parent);
+            }
+        }
+
+        $comment->setContent($data['content']);
+        $comment->setAuthor($user);
+        $comment->setImage($img);
+    
+        $comment->setCreatedAt(new \DateTimeImmutable());
+    
+        $this->entityManager->persist($comment);
+        $this->entityManager->flush();
+    
+        return new JsonResponse("Commentaire ajouté", Response::HTTP_OK);
+    }
+
+    public function deleteComment(array $data): JsonResponse
+    {
+        $comment = $this->commentRepository->find($data['id']);
+        if (!$comment) {
+            return new JsonResponse("Commentaire non trouvé", Response::HTTP_NOT_FOUND);
+        }
+    
+        $this->entityManager->remove($comment);
+        $this->entityManager->flush();
+    
+        return new JsonResponse("Commentaire supprimé", Response::HTTP_OK);
+    }
+    
     
 }

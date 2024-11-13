@@ -10,6 +10,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Lexik\Bundle\JWTAuthenticationBundle\Services\JWTTokenManagerInterface;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use App\Service\ImageService;
+use App\Service\TokenService;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\User;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
@@ -19,15 +20,17 @@ class ImageController extends AbstractController
 {
     private ImageService $imageService;
     private JWTTokenManagerInterface $jwtManager;
+    private TokenService $tokenService;
     private EntityManagerInterface $entityManager;
     private TokenStorageInterface $tokenStorage;
 
-    public function __construct(ImageService $imageService, JWTTokenManagerInterface $jwtManager, EntityManagerInterface $entityManager, TokenStorageInterface $tokenStorage)
+    public function __construct(ImageService $imageService, TokenService $tokenService, JWTTokenManagerInterface $jwtManager, EntityManagerInterface $entityManager, TokenStorageInterface $tokenStorage)
     {
         $this->imageService = $imageService;
+        $this->tokenService = $tokenService;
         $this->jwtManager = $jwtManager;
         $this->entityManager = $entityManager;
-        $this->tokenStorage = $tokenStorage; // Injection du TokenStorageInterface
+        $this->tokenStorage = $tokenStorage;
     }
 
     #[Route('', name: 'list', methods: ['GET'])]
@@ -91,23 +94,8 @@ class ImageController extends AbstractController
             throw new AccessDeniedException();
         }
 
-        $token = $this->tokenStorage->getToken();
-        if ($token === null) {
-            return new JsonResponse("Token not provided.", Response::HTTP_UNAUTHORIZED);
-        }
 
-        $decodedJwtToken = $this->jwtManager->decode($token);
-
-        $file = $request->files->get('image');
-        $data = $request->request->all();
-        if (!$file) {
-            return new JsonResponse("No file uploaded.", Response::HTTP_BAD_REQUEST);
-        }
-
-        $user = $this->entityManager->getRepository(User::class)->findOneBy(['email' => $decodedJwtToken['email']]);
-        if (!$user) {
-            return new JsonResponse("User not found.", Response::HTTP_NOT_FOUND);
-        }
+        $user = $this->tokenService->getUserFromToken();
 
         try {
             return $this->imageService->create($file, $user, $data);
@@ -123,21 +111,35 @@ class ImageController extends AbstractController
             throw new AccessDeniedException();
         }
 
-        $token = $this->tokenStorage->getToken();
-        if ($token === null) {
-            return new JsonResponse("Token not provided.", Response::HTTP_UNAUTHORIZED);
-        }
-
-        $decodedJwtToken = $this->jwtManager->decode($token);
-
-        $user = $this->entityManager->getRepository(User::class)->findOneBy(['email' => $decodedJwtToken['email']]);
-
-        if (!$user) {
-            return new JsonResponse("User not found.", Response::HTTP_NOT_FOUND);
-        }
+        $user = $this->tokenService->getUserFromToken();
 
         $data = json_decode($request->getContent(), true);
 
         return $this->imageService->toggleLike($data, $user);
+    }
+
+    #[Route('/newComment', name: 'newComment', methods: ['POST'])]
+    public function newComment(Request $request): Response
+    {
+        if (!$this->isGranted('ROLE_USER')) {
+            throw new AccessDeniedException();
+        }
+    
+        $user = $this->tokenService->getUserFromToken();
+        $data = json_decode($request->getContent(), true);
+    
+        return $this->imageService->newComment($data, $user);
+    }
+
+    #[Route('/deleteComment', name: 'deleteComment', methods: ['DELETE'])]
+    public function deleteComment(Request $request): Response
+    {
+        if (!$this->isGranted('ROLE_ADMIN')) {
+            throw new AccessDeniedException();
+        }
+    
+        $data = json_decode($request->getContent(), true);
+    
+        return $this->imageService->deleteComment($data);
     }
 }
