@@ -7,6 +7,7 @@ import Starpunk from './components/cards/starpunk.jsx';
 import Menu from './components/menu/menu.jsx';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Connect from './pages/Connect';
+import Register from './pages/Register.jsx';
 
 const router = createBrowserRouter([
   {
@@ -16,6 +17,10 @@ const router = createBrowserRouter([
   {
     path: '/login',
     element: <Connect />,
+  },
+  {
+    path: '/register',
+    element: <Register />,
   }
 ]);
 
