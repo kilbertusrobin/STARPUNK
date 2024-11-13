@@ -72,6 +72,7 @@ p{
 .div3 {
     height: 127.5px;  /* 150px * 0.85 */
     width: 425px;     /* 500px * 0.85 */
+    position: relative;
 }
 
 .div4{
@@ -99,5 +100,12 @@ p{
     position: absolute;
     left: -190px;
     scale: 0.5;
+    width: fit-content;
+}
+
+.titleEvent{
+    position: absolute;
+    left: -18px;
+    scale: 0.6;
     width: fit-content;
 }
