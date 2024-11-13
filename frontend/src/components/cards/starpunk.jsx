@@ -20,21 +20,21 @@ const Starpunk = () => {
   return (
     <>
       <div className="container-rs">
-        <img src="/Interface.svg" alt="Interface" />
+        <img src="/images-post/Interface.svg" alt="Interface" />
         <div className="inside-rs">
           {/* Wrapper de post avec une image cliquable */}
           {[...Array(3)].map((_, index) => (
             <div className="wrapper-post" key={index}>
               <img 
-                src="/test2.jpg" 
+                src="/images-post/test2.jpg" 
                 alt="Image du post" 
-                onClick={() => openModal('/test2.jpg')} // Ouvre la modale sur clic
+                onClick={() => openModal('/images-post/test2.jpg')} // Ouvre la modale sur clic
                 style={{ cursor: 'pointer' }} // Curseur en main pour indiquer que c'est cliquable
               />
               <div className="wrapper-like">
                 <h1 className="post-title">Image</h1>
                 <div className="like-count">
-                  <img src="/coeur.svg" className="like-button" alt="Bouton aimer" />
+                  <img src="/images-post/coeur.svg" className="like-button" alt="Bouton aimer" />
                   <p className="like-counter">370</p>
                 </div>
               </div>
@@ -47,7 +47,7 @@ const Starpunk = () => {
       {isOpen && (
         <div className="modal" onClick={closeModal}>
           <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-            <span className="close" onClick={closeModal}><img class="close-orange-cross" src="/orange-cross.svg" alt="" /></span>
+            <span className="close" onClick={closeModal}><img class="close-orange-cross" src="/images-post/orange-cross.svg" alt="" /></span>
             <img src={currentImage} alt="Image agrandie" className="modal-image" />
           </div>
         </div>
