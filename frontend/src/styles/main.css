@@ -9,7 +9,10 @@
     overflow-x: hidden;
     font-family: var(--font-family-base);
     color:white;
+    margin: 0;
+    padding: 0;
   }
+
 .background {
     background-image: url('./images-post/background.jpg');
     background-size: cover;
@@ -17,3 +20,4 @@
     height: 100vh;
     width: 100%;
 }
+

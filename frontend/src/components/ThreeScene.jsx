@@ -2,49 +2,42 @@ import React, { useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
-import './ThreeScene.css'; // CSS pour les modales
+import Starpunk from './cards/starpunk';
+import './ThreeScene.css';
 
 const ThreeScene = () => {
-  const cameraRef = useRef(); // Référence pour la caméra
-  const modelRef = useRef();  // Référence pour le modèle
-  const [selectedPoint, setSelectedPoint] = useState(null); // Pour gérer la sélection du point cliqué
+  const cameraRef = useRef();
+  const modelRef = useRef();
+  const [selectedPoint, setSelectedPoint] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const modelPosition = useRef(new THREE.Vector3(0, 0, 0)); // Position actuelle de l'objet
+  const targetPosition = useRef(new THREE.Vector3(0, 0, 0)); // Position cible de l'objet
 
   useEffect(() => {
-    // Création de la scène
     const scene = new THREE.Scene();
-    // Charger l'image de fond
-  const loaderbg = new THREE.TextureLoader();
-  loaderbg.load('./images-post/background.jpg', (texture) => {
-    scene.background = texture; // Applique la texture comme arrière-plan
-  });
+    const loaderbg = new THREE.TextureLoader();
+    loaderbg.load('./images-post/background.jpg', (texture) => {
+      scene.background = texture;
+    });
 
-    // Création de la caméra
     const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
     camera.position.z = 8;
-    cameraRef.current = camera; // Stockage de la caméra dans la référence
+    cameraRef.current = camera;
 
-    // Création du rendu
     const renderer = new THREE.WebGLRenderer({ antialias: true });
     renderer.setSize(window.innerWidth, window.innerHeight);
     document.body.appendChild(renderer.domElement);
 
-    // Ajouter une lumière ambiante
-    const ambientLight = new THREE.AmbientLight(0x404040, 100); // lumière ambiante, intensité 10
+    const ambientLight = new THREE.AmbientLight(0x404040, 100);
     scene.add(ambientLight);
 
-    
-  
-
-
-    // Charger le modèle 3D
     const loader = new GLTFLoader();
     loader.load('./wooden_stool_02_4k.gltf', (gltf) => {
       const model = gltf.scene;
-      model.scale.set(10, 10, 10); // Augmenter l'échelle du modèle pour le rendre plus gros
+      model.scale.set(10, 10, 10);
       scene.add(model);
-      modelRef.current = model; // Stocker le modèle dans la référence
+      modelRef.current = model;
 
-      // Ajouter des points interactifs autour du modèle avec des informations uniques
       const points = [];
       const pointData = [
         { id: 1, position: [0.2, 0.2, 0.2], info: "Point 1: Information spécifique" },
@@ -57,12 +50,11 @@ const ThreeScene = () => {
         const material = new THREE.MeshBasicMaterial({ color: 0xff0000 });
         const point = new THREE.Mesh(geometry, material);
         point.position.set(...data.position);
-        point.userData = { id: data.id, info: data.info }; // Stocker des informations dans userData
+        point.userData = { id: data.id, info: data.info };
         points.push(point);
-        model.add(point); // Ajouter les points en tant qu'enfants du modèle
+        model.add(point);
       });
 
-      // Raycaster pour détecter les clics sur les points
       const raycaster = new THREE.Raycaster();
       const mouse = new THREE.Vector2();
 
@@ -75,29 +67,28 @@ const ThreeScene = () => {
 
         if (intersects.length > 0) {
           const clickedPoint = intersects[0].object;
-          setSelectedPoint(clickedPoint.userData); // Stocker les données du point cliqué
+          setSelectedPoint(clickedPoint.userData);
+          setIsModalOpen(true);
         }
       };
 
       window.addEventListener('click', onMouseClick);
 
-      // Nettoyage
       return () => {
         window.removeEventListener('click', onMouseClick);
       };
     });
 
-    // Initialisation des contrôles de la caméra
     const controls = new OrbitControls(camera, renderer.domElement);
 
-    // Animation de la scène
     const animate = () => {
       requestAnimationFrame(animate);
-      controls.update(); // Mise à jour des contrôles
+      controls.update();
 
-      // Rotation très lente du modèle
+      // Interpolation pour un mouvement plus fluide de l'objet
       if (modelRef.current) {
-        modelRef.current.rotation.y += 0.001; // Rotation lente autour de l'axe Y
+        modelPosition.current.lerp(targetPosition.current, 0.1); // Interpolation fluide (0.1 est la vitesse)
+        modelRef.current.position.copy(modelPosition.current);
       }
 
       renderer.render(scene, camera);
@@ -105,27 +96,35 @@ const ThreeScene = () => {
 
     animate();
 
-    // Nettoyer le rendu lorsque le composant est démonté
     return () => {
-      controls.dispose(); // Libération des ressources des contrôles
+      controls.dispose();
       document.body.removeChild(renderer.domElement);
     };
   }, []);
 
-  // Gérer la fermeture de la modale
-  const closeModal = () => setSelectedPoint(null);
+  useEffect(() => {
+    if (modelRef.current) {
+      if (isModalOpen) {
+        // Déplacer l'objet 3D plus à gauche
+        targetPosition.current.set(-4, 0, 0); // Déplacer davantage à gauche
+      } else {
+        // Recentrer l'objet 3D
+        targetPosition.current.set(0, 0, 0); // Revenir au centre
+      }
+    }
+  }, [isModalOpen]);
+
+  const closeModal = () => {
+    setSelectedPoint(null);
+    setIsModalOpen(false);
+  };
 
   return (
     <>
-     
-      {/* Modale spécifique au point cliqué */}
       {selectedPoint && (
-        <div className="modal">
-          <div className="modal-content">
-            <h2>Point {selectedPoint.id}</h2>
-            <p>{selectedPoint.info}</p>
-            <button onClick={closeModal}>Fermer</button>
-          </div>
+        <div className="modal-right">
+          <Starpunk />
+          <button onClick={closeModal} className="close-button">Fermer</button>
         </div>
       )}
     </>
