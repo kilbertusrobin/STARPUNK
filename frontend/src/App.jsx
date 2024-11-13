@@ -1,13 +1,12 @@
 // src/App.jsx
 
 import React from 'react';
-import ThreeScene from './components/ThreeScene';
 import './styles.js'; // Assurez-vous que ce fichier existe et contient vos styles
-import Starpunk from './components/cards/starpunk.jsx';
 import Menu from './components/menu/menu.jsx';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Connect from './pages/Connect';
 import Register from './pages/Register.jsx';
+import Planet from './pages/Planet.jsx';
 
 const router = createBrowserRouter([
   {
@@ -21,6 +20,10 @@ const router = createBrowserRouter([
   {
     path: '/register',
     element: <Register />,
+  },
+  {
+    path: '/planete',
+    element: <Planet/>,
   }
 ]);
 
@@ -33,10 +36,10 @@ function AppContent() {
     <div className="background">
       <Menu />
       {/* <Starpunk /> */}
-      <ThreeScene />
       <div className="wrapperdivs">
         <div className="div1">
           <img src="./images-post/InterfaceO.svg" alt="" />
+          <img src="./images-post/TITRE.svg" className='title' alt="" />
         </div>
         <div className="div2">
           <img src="./images-post/InterfaceB.svg" alt="" />
@@ -48,7 +51,9 @@ function AppContent() {
       <div className="div4">
         <img src="./images-post/Interface3.svg" alt="" />
       </div>
+
     </div>
+
   );
 }
 

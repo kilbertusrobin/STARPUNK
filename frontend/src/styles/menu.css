@@ -61,6 +61,7 @@ p{
 .div1 {
     height: 148.75px; /* 175px * 0.85 */
     width: 467.5px;   /* 550px * 0.85 */
+    position: relative;
 }
 
 .div2 {
@@ -91,4 +92,12 @@ p{
     left: 50%;
     transform: translate(-50%, -30%);
     align-items: center;
+}
+
+
+.title{
+    position: absolute;
+    left: -190px;
+    scale: 0.5;
+    width: fit-content;
 }

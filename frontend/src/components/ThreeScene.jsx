@@ -89,6 +89,9 @@ const ThreeScene = () => {
       if (modelRef.current) {
         modelPosition.current.lerp(targetPosition.current, 0.1); // Interpolation fluide (0.1 est la vitesse)
         modelRef.current.position.copy(modelPosition.current);
+
+
+        modelRef.current.rotation.y += 0.001;  // Rotation lente autour de l'axe Y
       }
 
       renderer.render(scene, camera);
@@ -106,7 +109,7 @@ const ThreeScene = () => {
     if (modelRef.current) {
       if (isModalOpen) {
         // Déplacer l'objet 3D plus à gauche
-        targetPosition.current.set(-4, 0, 0); // Déplacer davantage à gauche
+        targetPosition.current.set(-6, 0, 0); // Déplacer davantage à gauche
       } else {
         // Recentrer l'objet 3D
         targetPosition.current.set(0, 0, 0); // Revenir au centre

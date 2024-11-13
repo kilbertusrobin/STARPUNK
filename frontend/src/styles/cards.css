@@ -97,7 +97,7 @@ img{
   }
   .modal-right {
     position: absolute;
-    top: 110vh;
+    top:0;
     right: 0;
     width: min-content;
     height: auto;
