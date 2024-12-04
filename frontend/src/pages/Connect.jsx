@@ -33,10 +33,12 @@ function Connect() {
 
   return (
     <div className="login-container">
-      <div className="title-connect-div">
+      <img src="./images-post/interface169.svg" alt="" className="interface169" />
+      
+          <form onSubmit={handleSubmit}>
+          <div className="title-connect-div">
           <img src="./images-post/TITRE.svg" className='title-connect' alt="" />
           </div>
-          <form onSubmit={handleSubmit}>
         <div className="form-group">
           <label className="form-content-h3" htmlFor="email">Email:</label>
           <input

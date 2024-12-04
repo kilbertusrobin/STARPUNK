@@ -128,6 +128,7 @@ a{
 .div2 {
     height: 127.5px;  /* 150px * 0.85 */
     width: 425px;     /* 500px * 0.85 */
+    position: relative;
 }
 
 .div3 {
@@ -169,4 +170,12 @@ a{
     left: -18px;
     scale: 0.6;
     width: fit-content;
+}
+
+.titleOrbital{
+    position: absolute;
+    scale: 0.55;
+    width: fit-content;
+    left: -110px;
+    top: 5px;
 }

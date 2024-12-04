@@ -3,12 +3,21 @@
         width: max-content;
         height: fit-content;
         padding: 10vh;
-        position:absolute;
+        position: relative;
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
 }
 
+.interface169{
+    position: absolute;
+}
+
+
+
+form{
+    position: absolute;
+}
 .title-connect-div{
     width: 100%;
     height: fit-content;

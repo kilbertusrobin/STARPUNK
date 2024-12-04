@@ -52,16 +52,21 @@ function App() {
             <img src="./images-post/InterfaceO.svg" alt="" />
             <img src="./images-post/TITRE.svg" className="title" alt="" />
           </div>
-          <div className="div2 svg-hover">
-            <img src="./images-post/InterfaceB.svg"  alt="" />
-          </div>
           <div className="div3 svg-hover">
             <img src="./images-post/InterfaceB2.svg" alt="" />
             <img src="./images-post/EVENT.svg" className="titleEvent" alt="" />
           </div>
+
+          <div className="div2 svg-hover">
+            <img src="./images-post/Interfaceorbital.svg"  alt="" />
+            <img src="./images-post/orbitalview.svg" className="titleOrbital" alt="" />
+
+          </div>
+          
         </div>
         <div className="div4">
-          <img src="./images-post/Interface3.svg" className="svg-hover" alt="" />
+          <img src="./images-post/Interface3.svg" alt="" />
+          <div className="test4"> <p>testtesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttest</p> </div>
         </div>
         <section>
           <span></span>
@@ -75,6 +80,9 @@ function App() {
           <span></span>
           <span></span>
         </section>
+        <div className="satelitte">
+          <img src="./images-post/alien.svg" alt="satelitte"/>
+        </div>
       </div>
     );
   }
