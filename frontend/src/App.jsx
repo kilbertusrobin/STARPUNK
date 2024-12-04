@@ -1,7 +1,7 @@
 // src/App.jsx
 
 import React from 'react';
-import './styles.js';
+import './styles.js'; // Assurez-vous que ce fichier existe et contient vos styles
 import Admin from './pages/Admin.jsx';
 import Menu from './components/menu/menu.jsx';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
@@ -26,7 +26,7 @@ const router = createBrowserRouter([
   },
   {
     path: '/planete',
-    element: <Planet/>,
+    element: <Planet />,
   },
   {
     path: '/admin',
@@ -42,31 +42,41 @@ function App() {
   );
 }
 
-function AppContent() {
-  return (
-    <div className="background">
-      <Menu />
-      {/* <Starpunk /> */}
-      <div className="wrapperdivs">
-        <div className="div1">
-          <img src="./images-post/InterfaceO.svg" alt="" />
-          <img src="./images-post/TITRE.svg" className='title' alt="" />
+  function AppContent() {
+    return (
+      <div className="background">
+        <Menu />
+        {/* <Starpunk /> */}
+        <div className="wrapperdivs">
+          <div className="div1 svg-hover">
+            <img src="./images-post/InterfaceO.svg" alt="" />
+            <img src="./images-post/TITRE.svg" className="title" alt="" />
+          </div>
+          <div className="div2 svg-hover">
+            <img src="./images-post/InterfaceB.svg"  alt="" />
+          </div>
+          <div className="div3 svg-hover">
+            <img src="./images-post/InterfaceB2.svg" alt="" />
+            <img src="./images-post/EVENT.svg" className="titleEvent" alt="" />
+          </div>
         </div>
-        <div className="div2">
-          <img src="./images-post/InterfaceB.svg" alt="" />
+        <div className="div4">
+          <img src="./images-post/Interface3.svg" className="svg-hover" alt="" />
         </div>
-        <div className="div3">
-          <img src="./images-post/InterfaceB2.svg" alt="" />
-          <img src="./images-post/EVENT.svg" className='titleEvent' alt="" />
-        </div>
+        <section>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+        </section>
       </div>
-      <div className="div4">
-        <img src="./images-post/Interface3.svg" alt="" />
-      </div>
+    );
+  }
 
-    </div>
-
-  );
-}
-
-export default App;
+  export default App;

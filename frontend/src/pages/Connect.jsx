@@ -33,10 +33,12 @@ function Connect() {
 
   return (
     <div className="login-container">
-      <h2>Login</h2>
-      <form onSubmit={handleSubmit}>
+      <div className="title-connect-div">
+          <img src="./images-post/TITRE.svg" className='title-connect' alt="" />
+          </div>
+          <form onSubmit={handleSubmit}>
         <div className="form-group">
-          <label htmlFor="email">Email:</label>
+          <label className="form-content-h3" htmlFor="email">Email:</label>
           <input
             type="email"
             id="email"
@@ -47,7 +49,7 @@ function Connect() {
           />
         </div>
         <div className="form-group">
-          <label htmlFor="password">Password:</label>
+          <label className="form-content-h3" htmlFor="password">Password:</label>
           <input
             type="password"
             id="password"
@@ -57,7 +59,9 @@ function Connect() {
             required
           />
         </div>
+        <div className="button-connect">
         <button type="submit">Login</button>
+        </div>
       </form>
     </div>
   );

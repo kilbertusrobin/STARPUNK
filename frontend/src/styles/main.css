@@ -13,8 +13,9 @@
     padding: 0;
   }
 
+  
+
 .background {
-    background-image: url('./images-post/background.jpg');
     background-size: cover;
     background-position: center;
     height: 100vh;

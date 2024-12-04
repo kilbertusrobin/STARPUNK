@@ -111,12 +111,17 @@ a{
     margin-left: 10px;
     height: 100vh;
     width: fit-content;
-    position: relative;
+    position: absolute;
+
+}
+.wrapper-p .title-connect{
+    padding-bottom: 0px;
 }
 
+
 .div1 {
-    height: 148.75px; /* 175px * 0.85 */
-    width: 467.5px;   /* 550px * 0.85 */
+    height: 160px; /* 175px * 0.85 */
+    width: 535px;   /* 550px * 0.85 */
     position: relative;
 }
 
