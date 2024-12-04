@@ -92,6 +92,22 @@ class ImageService
             return new JsonResponse($e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
+
+    public function getOnlyUnvalidated(): JsonResponse
+    {
+        try {
+            $list = $this->imageRepository->findBy(['status' => false]);
+
+            if (empty($list)) {
+                return new JsonResponse("Aucune entité enregistrée", Response::HTTP_OK);
+            }
+
+            $serializedData = $this->jmsSerializer->serialize($list, "json", SerializationContext::create()->setGroups(['list_image']));
+            return new JsonResponse(json_decode($serializedData), Response::HTTP_OK);
+        } catch (\Exception $e) {
+            return new JsonResponse($e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
+    }
     
 
 
@@ -136,28 +152,28 @@ class ImageService
         }
     }
 
-        public function create(UploadedFile $file, User $user, $data): JsonResponse
-        {
-            $allowedTypes = ['image/png', 'image/jpeg', 'image/jpg'];
-            if (!in_array($file->getMimeType(), $allowedTypes)) {
-                throw new \Exception("File type not allowed.");
-            }
-
-            $filename = uniqid() . '.' . $file->getClientOriginalExtension();
-            $path = 'uploads/images/';
-            $file->move($path, $filename);
-
-            $image = new Image();
-            $image->setUrl("http://localhost:8000/$path$filename");
-            $image->setTitle($data['title']);
-            $image->setDescription($data['description']);
-            $image->setStatus(false);
-            $image->setUser($user);
-
-            $this->imageRepository->save($image);
-
-            return new JsonResponse("L'image a bien été créée", JsonResponse::HTTP_CREATED);
+    public function create(UploadedFile $file, User $user, $data): JsonResponse
+    {
+        $allowedTypes = ['image/png', 'image/jpeg', 'image/jpg'];
+        if (!in_array($file->getMimeType(), $allowedTypes)) {
+            throw new \Exception("File type not allowed.");
         }
+
+        $filename = uniqid() . '.' . $file->getClientOriginalExtension();
+        $path = 'uploads/images/';
+        $file->move($path, $filename);
+
+        $image = new Image();
+        $image->setUrl("http://localhost:8000/$path$filename");
+        $image->setTitle($data['title']);
+        $image->setDescription($data['description']);
+        $image->setStatus(false);
+        $image->setUser($user);
+
+        $this->imageRepository->save($image);
+
+        return new JsonResponse("L'image a bien été créée", JsonResponse::HTTP_CREATED);
+    }
 
     public function toggleLike(array $data, User $user): JsonResponse
     {

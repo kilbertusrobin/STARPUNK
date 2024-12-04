@@ -60,6 +60,19 @@ class ImageController extends AbstractController
         }
     }
 
+    #[Route('/getOnlyUnalidated', name: 'getOnlyUnvalidated', methods: ['GET'])]
+    public function getOnlyUnvalidated(): Response
+    {
+        if (!$this->isGranted('ROLE_ADMIN')) {
+            throw new AccessDeniedException();
+        }
+        try {
+            return $this->imageService->getOnlyUnvalidated();
+        } catch (\Exception $e) {
+            return new JsonResponse($e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
+    }
+
     #[Route('/validate', name: 'validate', methods: ['POST'])]
     public function validate(Request $request): Response
     {
@@ -87,16 +100,29 @@ class ImageController extends AbstractController
         }
     }
 
-    #[Route('/create', name:'create', methods: ['POST'])]
+    #[Route('/create', name: 'create', methods: ['POST'])]
     public function create(Request $request): Response
     {
         if (!$this->isGranted('ROLE_USER')) {
             throw new AccessDeniedException();
         }
-
-
+    
         $user = $this->tokenService->getUserFromToken();
-
+    
+        $file = $request->files->get('image');
+        if (!$file) {
+            return new JsonResponse("Aucun fichier n'a été fourni.", Response::HTTP_BAD_REQUEST);
+        }
+    
+        $data = [
+            'title' => $request->request->get('title'),
+            'description' => $request->request->get('description'),
+        ];
+    
+        if (empty($data['title']) || empty($data['description'])) {
+            return new JsonResponse("Les champs 'title' et 'description' sont requis.", Response::HTTP_BAD_REQUEST);
+        }
+    
         try {
             return $this->imageService->create($file, $user, $data);
         } catch (\Exception $e) {

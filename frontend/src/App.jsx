@@ -1,11 +1,14 @@
 // src/App.jsx
 
 import React from 'react';
-import './styles.js'; // Assurez-vous que ce fichier existe et contient vos styles
+import './styles.js';
+import Admin from './pages/Admin.jsx';
 import Menu from './components/menu/menu.jsx';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Connect from './pages/Connect';
 import Register from './pages/Register.jsx';
+import { Provider } from 'react-redux';
+import store from './redux/adminStore';
 import Planet from './pages/Planet.jsx';
 
 const router = createBrowserRouter([
@@ -24,11 +27,19 @@ const router = createBrowserRouter([
   {
     path: '/planete',
     element: <Planet/>,
+  },
+  {
+    path: '/admin',
+    element: <Admin />,
   }
 ]);
 
 function App() {
-  return <RouterProvider router={router} />;
+  return (
+    <Provider store={store}>
+      <RouterProvider router={router} />
+    </Provider>
+  );
 }
 
 function AppContent() {

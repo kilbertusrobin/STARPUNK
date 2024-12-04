@@ -1,21 +1,15 @@
 meta {
-  name: CreateImage
+  name: OnlyUnvalidated
   type: http
-  seq: 4
+  seq: 6
 }
 
-post {
-  url: http://localhost:8000/api/images/create
-  body: multipartForm
+get {
+  url: http://localhost:8000/api/images/getOnlyUnalidated
+  body: none
   auth: bearer
 }
 
 auth:bearer {
   token: eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE3MzI0NjgyMTMsImV4cCI6MTczMjQ3MTgxMywicm9sZXMiOlsiUk9MRV9VU0VSIiwiUk9MRV9BRE1JTiJdLCJlbWFpbCI6IlJvYmxlWm9iQHpvYi5jb20ifQ.G48OUYSrICQUA2yX67f158dXRI8lHdYF3FPpKQJM1GRtXzwbTC_2kYwEjXdWMDSN6H4lpLPRZYJg5Gcnlilm--U3nEUPUddMtEJzQ_urlaqy35gO0aSA0Y_vcx_P5H87oKxGB4KAfiOz79Gh9sBVbRjL7Z0JRfp1td9g1JIuFuCP89TY-GeKgPT1BHtfBFeBGJZDiRj-DS27Emoqn-vilyvo_2kMj31VIAd3CT_oPVuTeJULF5jZW7OHK0Z7gOLOjTfzGZlHjcDQkHE2bjLma73YVnO3aoh-AjsLFwMmOb0mKzpJAp1ZXD2nytiGVmV0M57fQIzY5qmerjlSAayJMQ
-}
-
-body:multipart-form {
-  image: @file(C:\Users\rbxfa\OneDrive\Desktop\valisemobile.png)
-  title: ValiseMobile
-  description: Comme je voyage beaucoup et que j'aime les valises j'ai créé la valise mobile
 }
