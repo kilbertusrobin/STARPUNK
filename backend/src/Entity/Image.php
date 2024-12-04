@@ -31,9 +31,11 @@ class Image
     private ?User $user = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['list_image'])]
     private ?string $title = null;
 
     #[ORM\Column(length: 750)]
+    #[Groups(['list_image'])]
     private ?string $description = null;
 
     /**
