@@ -87,6 +87,20 @@ class ImageController extends AbstractController
         }
     }
 
+    #[Route('/deny', name: 'deny', methods: ['POST'])]
+    public function deny(Request $request): Response
+    {
+        if (!$this->isGranted('ROLE_ADMIN')) {
+            throw new AccessDeniedException();
+        }
+        try {
+            $data = json_decode($request->getContent(), true);
+            return $this->imageService->deny($data);
+        } catch (\Exception $e) {
+            return new JsonResponse($e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
+    }
+
     #[Route('/delete', name:'delete', methods: ['DELETE'])]
     public function delete(Request $request): Response
     {
