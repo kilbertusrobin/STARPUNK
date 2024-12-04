@@ -11,8 +11,10 @@ const Menu = () => {
         <img src="/images-post/MENU.svg" alt="Interface"/>
             <div className="inside-menu">
             <div className="wrapper-p">
-            <a href="#starpunk"><p>StarPunk</p></a>
-            <a href="#nos-artistes"><p>Nos Artistes</p></a>
+            <div className="title-connect-div">
+          <img src="./images-post/TITRE.svg" className='title-connect' alt="" />
+          </div>
+          <a href="#nos-artistes"><p>Nos Artistes</p></a>
             <a href="#poster-online"><p>Poster Online</p></a>
             <a href="#actus"><p>Actus</p></a>
             <a href="#contacts"><p>Contacts</p></a>

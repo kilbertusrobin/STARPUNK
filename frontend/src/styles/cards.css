@@ -1,5 +1,5 @@
 .container-rs{
-    height: 80vh;
+    height: 60vh;
     width: fit-content;
     position: relative;
 }
@@ -97,8 +97,8 @@ img{
   }
   .modal-right {
     position: absolute;
-    top:0;
-    right: 0;
+    top:5vh;
+    right: 5vh;
     width: min-content;
     height: auto;
     width: auto;
