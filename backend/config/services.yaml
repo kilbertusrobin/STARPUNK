@@ -1,11 +1,9 @@
 services:
-    # Default configuration for services in this file
     _defaults:
         autowire: true      # Automatically injects dependencies in your services.
         autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
 
     # Makes classes in src/ available to be used as services
-    # This creates a service per class whose id is the fully-qualified class name
     App\:
         resource: '../src/'
         exclude:
@@ -17,3 +15,10 @@ services:
     App\Controller\:
         resource: '../src/Controller/'
         tags: ['controller.service_arguments']
+
+    # Ajoutez cette ligne pour la commande
+    App\Command\SendTestEmailCommand:
+        arguments:
+            $emailService: '@App\Service\EmailService'
+        tags:
+            - { name: 'console.command' }

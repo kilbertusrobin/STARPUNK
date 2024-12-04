@@ -4,6 +4,7 @@ namespace App\Service;
 
 use App\Repository\ImageRepository;
 use App\Repository\LikeRepository;
+use App\Service\EmailService;
 use App\Repository\CommentRepository;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -23,17 +24,20 @@ class ImageService
     private LikeRepository $likeRepository;
     private SerializerInterface $jmsSerializer;
     private EntityManagerInterface $entityManager;
+    private EmailService $emailService;
 
     public function __construct(
         ImageRepository $imageRepository,
         CommentRepository $commentRepository,
         LikeRepository $likeRepository,
         SerializerInterface $jmsSerializer,
+        EmailService $emailService,
         EntityManagerInterface $entityManager
     ) {
         $this->imageRepository = $imageRepository;
         $this->commentRepository = $commentRepository;
         $this->likeRepository = $likeRepository;
+        $this->emailService = $emailService;
         $this->jmsSerializer = $jmsSerializer;
         $this->entityManager = $entityManager;
     }
@@ -96,7 +100,7 @@ class ImageService
     public function getOnlyUnvalidated(): JsonResponse
     {
         try {
-            $list = $this->imageRepository->findBy(['status' => false]);
+            $list = $this->imageRepository->findBy(['status' => false, 'reference' => null]);
 
             if (empty($list)) {
                 return new JsonResponse("Aucune entité enregistrée", Response::HTTP_OK);
@@ -104,6 +108,21 @@ class ImageService
 
             $serializedData = $this->jmsSerializer->serialize($list, "json", SerializationContext::create()->setGroups(['list_image']));
             return new JsonResponse(json_decode($serializedData), Response::HTTP_OK);
+        } catch (\Exception $e) {
+            return new JsonResponse($e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    public function isThereUnvalidated() : bool
+    {
+        try {
+            $list = $this->imageRepository->findBy(['status' => false]);
+
+            if (empty($list)) {
+                return false;
+            }
+
+            return true;
         } catch (\Exception $e) {
             return new JsonResponse($e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
         }
@@ -119,7 +138,10 @@ class ImageService
             if (!$image) {
                 return new JsonResponse("Image non trouvée", Response::HTTP_NOT_FOUND);
             }
-
+            
+            $username= $image->getUser()->getUsername();
+            $email= $image->getUser()->getEmail();
+            
             if ($image->isStatus()) {
                 return new JsonResponse("Image déjà validée", Response::HTTP_OK);
             } else {
@@ -127,6 +149,9 @@ class ImageService
                 $image->setStatus($newStatus);
                 $this->entityManager->persist($image);
                 $this->entityManager->flush();
+                
+                $this->emailService->sendConfirmationEmail($email, $username);
+
                 return new JsonResponse("Image validée", Response::HTTP_OK);
             }
 
@@ -134,6 +159,66 @@ class ImageService
             return new JsonResponse($e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
+
+    public function deny(array $data): JsonResponse
+    {
+        $image = $this->imageRepository->find($data['id']);
+        if (!$image) {
+            return new JsonResponse("Image non trouvée", Response::HTTP_NOT_FOUND);
+        }
+    
+        $username = $image->getUser()->getUsername();
+        $email = $image->getUser()->getEmail();
+    
+        if ($image->isStatus()) {
+            return new JsonResponse("Image déjà validée", Response::HTTP_OK);
+        } else if ($image->getReference() != null) {
+            return new JsonResponse("Image déjà refusée", Response::HTTP_OK);
+        } else {
+            $reference = time() . rand(1000, 9999);
+    
+            $date = new \DateTime();
+    
+            $image->setReference($reference);
+            $image->setRefusalDate($date);
+    
+            $this->entityManager->persist($image);
+            $this->entityManager->flush();
+    
+            $this->emailService->imageDenied($email, $username, $data['reason'], $reference);
+    
+            return new JsonResponse("Image refusée avec la référence: $reference", Response::HTTP_OK);
+        }
+    }
+
+    public function getExpiredImages(): JsonResponse
+    {
+        $qb = $this->imageRepository->createQueryBuilder('i')
+            ->where('i.reference IS NOT NULL')
+            ->andWhere('i.refusalDate IS NOT NULL')
+            ->getQuery();
+    
+        $images = $qb->getResult();
+        $expiredImages = [];
+        $now = new \DateTime();
+    
+        foreach ($images as $image) {
+            $refusalDate = $image->getRefusalDate();
+    
+            if ($refusalDate instanceof \DateTime && $now->diff($refusalDate)->days >= 15) {
+                $expiredImages[] = $image;
+            }
+        }
+    
+        if (empty($expiredImages)) {
+            return new JsonResponse("Aucune image expirée", Response::HTTP_OK);
+        }
+    
+        $serializedData = $this->jmsSerializer->serialize($expiredImages, "json", SerializationContext::create()->setGroups(['list_image']));
+        return new JsonResponse(json_decode($serializedData), Response::HTTP_OK);
+    }
+
+    
 
     public function delete(array $data): JsonResponse
     {

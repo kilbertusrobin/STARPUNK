@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\ImageRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
 use JMS\Serializer\Annotation\Groups;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -49,6 +50,12 @@ class Image
      */
     #[ORM\OneToMany(targetEntity: Comment::class, mappedBy: 'image')]
     private Collection $comments;
+
+    #[ORM\Column(nullable: true)]
+    private ?int $reference = null;
+
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
+    private ?\DateTimeInterface $refusalDate = null;
 
     public function __construct()
     {
@@ -178,6 +185,30 @@ class Image
                 $comment->setImage(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getReference(): ?int
+    {
+        return $this->reference;
+    }
+
+    public function setReference(?int $reference): static
+    {
+        $this->reference = $reference;
+
+        return $this;
+    }
+
+    public function getRefusalDate(): ?\DateTimeInterface
+    {
+        return $this->refusalDate;
+    }
+
+    public function setRefusalDate(?\DateTimeInterface $refusalDate): static
+    {
+        $this->refusalDate = $refusalDate;
 
         return $this;
     }

@@ -1,0 +1,22 @@
+meta {
+  name: DenyImage
+  type: http
+  seq: 7
+}
+
+post {
+  url: http://localhost:8000/api/images/deny
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE3MzMzMDg3NTAsImV4cCI6MTczMzMxMjM1MCwicm9sZXMiOlsiUk9MRV9VU0VSIiwiUk9MRV9BRE1JTiJdLCJlbWFpbCI6IlJvYmxlWm9iQHpvYi5jb20ifQ.SLkdrozoX3voCoV4YPwTHMd9nF5cfZN2554Bfpw8PJaXRw9DzYhyqhU3F31ikrA74AjgHCUPFYglSydnBX-z9Sf9b1z1jzOkDtE646TZl86triBSUWUg8uh_7eNexm0gQzFG1D43lcQTIncMbmuvSrpTJqmDmFsXE2IM7A7ofY06OAGIAUBk1M7ifnrwhrY5PfGfXdS5yH_zQj3VxoPftp4coBG3Nr8W980wrmEmH8fgLFkqOkACGB5qhkHLLstvBAdaQbv1Hl3jFzevRHEF7znWJ0WV7fVDGxWAhEduFaY8QTGEHB7yRkehW0A1Goit6S8PDVB7tdBJ4iRheGbcNg
+}
+
+body:json {
+  {
+    "id" : "11",
+    "reason" : "Non respect du règlement du site"
+  }
+}
