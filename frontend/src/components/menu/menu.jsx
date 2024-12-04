@@ -10,16 +10,16 @@ const Menu = () => {
       <div className="container-menu">
         <img src="/images-post/MENU.svg" alt="Interface"/>
             <div className="inside-menu">
-                <div className="wrapper-p">
-                    <p>StarPunk</p>
-                    <p>Nos Artistes</p>
-                    <p>Poster Online</p>
-                    <p>Actus</p>
-                    <p>Contacts</p>
-                    <p>Boutique</p>
-                    <p>En savoir plus</p>
-                    <p>Mentions Légales</p>
-                </div>
+            <div className="wrapper-p">
+            <a href="#starpunk"><p>StarPunk</p></a>
+            <a href="#nos-artistes"><p>Nos Artistes</p></a>
+            <a href="#poster-online"><p>Poster Online</p></a>
+            <a href="#actus"><p>Actus</p></a>
+            <a href="#contacts"><p>Contacts</p></a>
+            {/* <a href="#boutique"><p>Boutique</p></a> */}
+            <a href="#en-savoir-plus"><p>En savoir plus</p></a>
+            <a href="#mentions-legales"><p>Mentions Légales</p></a>
+          </div>
                 <div className="wrapper-icon">
                     <div className="reseaux">
 

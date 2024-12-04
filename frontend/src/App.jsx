@@ -57,6 +57,7 @@ function AppContent() {
         </div>
         <div className="div3">
           <img src="./images-post/InterfaceB2.svg" alt="" />
+          <img src="./images-post/EVENT.svg" className='titleEvent' alt="" />
         </div>
       </div>
       <div className="div4">
