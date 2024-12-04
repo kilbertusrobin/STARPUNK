@@ -1,4 +1,4 @@
-const axios = require('axios');
+import axios from 'axios';
 
 const ValidateImage = async (imageData, token) => {
     try {
@@ -15,4 +15,4 @@ const ValidateImage = async (imageData, token) => {
     }
 };
 
-module.exports = ValidateImage;
+export default ValidateImage;
