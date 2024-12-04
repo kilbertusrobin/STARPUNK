@@ -52,29 +52,60 @@ function App() {
             <img src="./images-post/InterfaceO.svg" alt="" />
             <img src="./images-post/TITRE.svg" className="title" alt="" />
           </div>
-          <div className="div2 svg-hover">
-            <img src="./images-post/InterfaceB.svg"  alt="" />
-          </div>
           <div className="div3 svg-hover">
             <img src="./images-post/InterfaceB2.svg" alt="" />
             <img src="./images-post/EVENT.svg" className="titleEvent" alt="" />
           </div>
+
+          <div className="div2 svg-hover">
+            <img src="./images-post/Interfaceorbital.svg"  alt="" />
+            <img src="./images-post/orbitalview.svg" className="titleOrbital" alt="" />
+          </div>
+          <div className="wrapper-icon">
+                    <div className="reseaux">
+                        <a href="#"><img src="/images-post/x.svg" alt="X" className="img-reseaux" /></a>
+                        <a href="#"><img src="/images-post/tiktok.svg" alt="tiktok" className="img-reseaux" /></a>
+                        <a href="#"><img src="/images-post/instagram.svg" alt="instagram" className="img-reseaux" /></a>
+                        <a href="#"><img src="/images-post/youtube.svg" alt="youtube" className="img-reseaux" /></a>
+                    </div>
+                </div>
+          
         </div>
         <div className="div4">
-          <img src="./images-post/Interface3.svg" className="svg-hover" alt="" />
+          <img src="./images-post/Interface3.svg" alt="" />
+          <div className="test4">
+
+          <p style={{ display: 'flex', flexDirection: 'row' }}>
+              <span>Utilisateur </span>
+            </p>
+            <p className='wrap'>test testtest testtest testtest testtest testtest testtest testtest testtest testtest test</p>
+            <p style={{ display: 'flex', flexDirection: 'row' }}>
+              <span>Utilisateur </span>
+            </p>
+            <p className='wrap'>test testtest testtest testtest testtest testtest testtest testtest testtest testtest test</p>
+            <p style={{ display: 'flex', flexDirection: 'row' }}>
+              <span>Utilisateur </span>
+            </p>
+            <p className='wrap'>test testtest testtest testtest testtest testtest testtest testtest testtest testtest test</p>
+               
+
+                        </div>
         </div>
         <section>
-          <span></span>
-          <span></span>
-          <span></span>
-          <span></span>
-          <span></span>
-          <span></span>
-          <span></span>
-          <span></span>
-          <span></span>
-          <span></span>
+                    <span className="span"></span>
+          <span className="span"></span>
+          <span className="span"></span>
+          <span className="span"></span>
+          <span className="span"></span>
+          <span className="span"></span>
+          <span className="span"></span>
+          <span className="span"></span>
+          <span className="span"></span>
+          <span className="span"></span>
         </section>
+        <div className="satelitte">
+          <img src="./images-post/alien.svg" alt="satelitte"/>
+        </div>
       </div>
     );
   }

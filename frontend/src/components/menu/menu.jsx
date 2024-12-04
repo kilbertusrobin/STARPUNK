@@ -22,15 +22,6 @@ const Menu = () => {
             <a href="#en-savoir-plus"><p>En savoir plus</p></a>
             <a href="#mentions-legales"><p>Mentions Légales</p></a>
           </div>
-                <div className="wrapper-icon">
-                    <div className="reseaux">
-
-                        <a href="#"><img src="/images-post/x.svg" alt="X" className="img-reseaux" /></a>
-                        <a href="#"><img src="/images-post/tiktok.svg" alt="tiktok" className="img-reseaux" /></a>
-                        <a href="#"><img src="/images-post/instagram.svg" alt="instagram" className="img-reseaux" /></a>
-                        <a href="#"><img src="/images-post/youtube.svg" alt="youtube" className="img-reseaux" /></a>
-                    </div>
-                </div>
             </div>
         </div>
     </>
