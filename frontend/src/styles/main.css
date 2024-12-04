@@ -21,3 +21,56 @@
     width: 100%;
 }
 
+/* ThreeScene.css */
+
+/* Style général pour la page de chargement */
+.loading-page {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.85); /* Fond sombre avec opacité */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999; /* Toujours devant */
+  color: white;
+  font-family: 'Arial', sans-serif;
+  font-size: 1.5rem;
+  text-align: center;
+}
+
+/* Texte de chargement */
+.loading-page p {
+  margin: 0 0 20px; /* Espacement en bas */
+  animation: fadeIn 1.5s infinite; /* Animation de clignotement */
+}
+
+/* Barre de progression */
+.progress-bar {
+  width: 50%; /* Largeur de la barre */
+  height: 10px; /* Hauteur de la barre */
+  background-color: gray; /* Couleur de fond de la barre */
+  border-radius: 5px; /* Coins arrondis */
+  overflow: hidden; /* Empêcher le débordement */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Ombre douce */
+}
+
+.progress-bar-inner {
+  height: 100%; /* Remplit toute la hauteur */
+  width: 0%; /* Cette valeur sera définie dynamiquement via React */
+  background-color: lime; /* Couleur de progression */
+  transition: width 0.3s ease-in-out; /* Transition douce pour les changements de largeur */
+}
+
+/* Animation pour le texte */
+@keyframes fadeIn {
+  0%, 100% {
+    opacity: 0.7;
+  }
+  50% {
+    opacity: 1;
+  }
+}
