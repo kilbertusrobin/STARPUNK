@@ -139,10 +139,13 @@ img{
   .test4{
     position: absolute;
     width: 400px;
-    max-height: 300px;
-    background-color: red;
-    opacity: 0.4;
-    bottom: 0;
+    max-height: 200px;
+    bottom: 70px;
     right: 0;
-    padding: 10%;
+    padding: 13%;
+    padding-bottom: 20%;
+    display: flex;
+    flex-direction: column;
+    overflow-x: auto;
+    scrollbar-width: none;
   }

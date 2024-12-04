@@ -13,7 +13,10 @@
     position: absolute;
 }
 
-
+.wrap{
+    text-wrap: wrap;
+    border-bottom:  2px solid #ddd;
+}
 
 form{
     position: absolute;

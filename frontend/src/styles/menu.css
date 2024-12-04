@@ -45,6 +45,7 @@ a{
     height: min-content;
     width: 70%;
     display: flex;
+    gap: 30px;
     flex-direction: row;
     justify-content: space-between;
 }
