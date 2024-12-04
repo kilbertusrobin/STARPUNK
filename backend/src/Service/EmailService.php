@@ -2,15 +2,18 @@
 namespace App\Service;
 
 use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\Mime\Email;
 
 class EmailService
 {
     private MailerInterface $mailer;
+    private $params;
 
-    public function __construct(MailerInterface $mailer)
+    public function __construct(MailerInterface $mailer, ParameterBagInterface $params)
     {
         $this->mailer = $mailer;
+        $this->params = $params;
     }
 
     public function sendTestEmail(): void
@@ -19,34 +22,6 @@ class EmailService
         <html>
             <head>
                 <style>
-                    body {
-                        font-family: Arial, sans-serif;
-                        display: flex;
-                        align-items: center;
-                        justify-content: center;
-                        background-image: url(\'http://localhost:8000/images-post/background.jpg\');
-                        background-size: cover;
-                        background-position: center;
-                        color: white;
-                        padding: 0;
-                        margin: 0;
-                        box-sizing: border-box;
-                    }
-                    h1 {
-                        color: #E68900;
-                    }
-                    p {
-                        width: 80%;
-                    }
-                    .container {
-                        width: 95%;
-                        display: flex;
-                        flex-direction: column;
-                        align-items: center;
-                        justify-content: start;
-                        gap: 20px;
-                        height: 95%;
-                    }
                     .button {
                         display: inline-block;
                         padding: 10px 20px;
@@ -55,64 +30,60 @@ class EmailService
                         text-decoration: none;
                         border-radius: 5px;
                         font-weight: bold;
+                        margin-top: 20px;
                     }
                     .button:hover {
                         background-color: #ff8c00;
                     }
+                    .content {
+                        margin-bottom: 50px;
+                    }
+                    img {
+                        display: block;
+                        margin: 40px auto 0;
+                        max-width: 100%;
+                    }
                 </style>
             </head>
             <body>
-                <div class="container">
-                    <h1>J\'ai besoin de toi, administrateur</h1>
-                    <p>Certains utilisateurs attendent ta validation pour poster leurs illustrations</p>
-                    <a href="http://localhost:5173/admin" class="button">Viens donner ton accord</a>
-                    <img src="http://localhost:8000/images-post/titre.svg" alt="titre" style="width: 50%; margin-top: 20px;">
-                </div>
+                <table width="100%" style="height: 100vh;">
+                    <tr>
+                        <td style="text-align: center;">
+                            <table style="width: 100%; height: 100%; background-image: url(\'https://res.cloudinary.com/dts3sgbe0/image/upload/v1733318704/background_unbvel.jpg\'); background-size: cover; background-position: center;">
+                                <tr>
+                                    <td style="text-align: center; height:100%; width:100%; padding: 20px;">
+                                        <h1 style="color:orange; margin-bottom: 50px; font-size:40px">J\'ai besoin de toi, administrateur</h1>
+                                        <p style="color:white; margin-bottom: 50px; font-size:20px">Certains utilisateurs attendent ta validation pour poster leurs illustrations</p>
+                                        <div class="content">
+                                            <a href="http://localhost:5173/admin" style="color:white; font-size:20px" class="button">Viens donner ton accord</a>
+                                        </div>
+                                        <img src="https://res.cloudinary.com/dts3sgbe0/image/upload/v1733322391/titlepng_pgmgoh.png" style="margin-top:40px">
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
             </body>
         </html>';
-
+    
         $email = (new Email())
-            ->from('supervisor@starpunk.com')
-            ->to('admin@example.com')
+            ->from('starpunk33000@gmail.com')
+            ->to('rbx.fay@gmail.com')
             ->subject('Besoin de validation')
             ->html($htmlContent);
-
+    
         $this->mailer->send($email);
     }
+    
+    
+    
 
     public function sendConfirmationEmail($email, $username) {
         $htmlContent = '
         <html>
             <head>
                 <style>
-                    body {
-                        font-family: Arial, sans-serif;
-                        display: flex;
-                        align-items: center;
-                        justify-content: center;
-                        background-image: url(\'http://localhost:8000/images-post/background.jpg\');
-                        background-size: cover;
-                        background-position: center;
-                        color: white;
-                        padding: 0;
-                        margin: 0;
-                        box-sizing: border-box;
-                    }
-                    h1 {
-                        color: #E68900;
-                    }
-                    p {
-                        width: 80%;
-                    }
-                    .container {
-                        width: 95%;
-                        display: flex;
-                        flex-direction: column;
-                        align-items: center;
-                        justify-content: start;
-                        gap: 20px;
-                        height: 95%;
-                    }
                     .button {
                         display: inline-block;
                         padding: 10px 20px;
@@ -121,19 +92,40 @@ class EmailService
                         text-decoration: none;
                         border-radius: 5px;
                         font-weight: bold;
+                        margin-top: 20px;
                     }
                     .button:hover {
                         background-color: #ff8c00;
                     }
+                    .content {
+                        margin-bottom: 50px;
+                    }
+                    img {
+                        display: block;
+                        margin: 40px auto 0;
+                        max-width: 100%;
+                    }
                 </style>
             </head>
             <body>
-                <div class="container">
-                    <h1>Bonne nouvelle, '.$username.' ! </h1>
-                    <p>Ton illustration a été consultée et approuvée par un administrateur STARPUNK</p>
-                    <a href="http://localhost:5173/planete" class="button">Tu peux désormais la consulter ici !</a>
-                    <img src="http://localhost:8000/images-post/titre.svg" alt="titre" style="width: 50%; margin-top: 20px;">
-                </div>
+                <table width="100%" style="height: 100vh;">
+                    <tr>
+                        <td style="text-align: center;">
+                            <table style="width: 100%; height: 100%; background-image: url(\'https://res.cloudinary.com/dts3sgbe0/image/upload/v1733318704/background_unbvel.jpg\'); background-size: cover; background-position: center;">
+                                <tr>
+                                    <td style="text-align: center; height:100%; width:100%; padding: 20px;">
+                                        <h1 style="color:orange; margin-bottom: 50px; font-size:40px">Bonne nouvelle, '.$username.' !</h1>
+                                        <p style="color:white; margin-bottom: 50px; font-size:20px">Un administrateur STARPUNK a consulté et approuvé ton illustration !</p>
+                                        <div class="content">
+                                            <a href="http://localhost:5173/planete" style="color:white; font-size:20px" class="button">Tu peux la consulter ici</a>
+                                        </div>
+                                        <img src="https://res.cloudinary.com/dts3sgbe0/image/upload/v1733322391/titlepng_pgmgoh.png" style="margin-top:40px">
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
             </body>
         </html>';
 
@@ -151,34 +143,6 @@ class EmailService
         <html>
             <head>
                 <style>
-                    body {
-                        font-family: Arial, sans-serif;
-                        display: flex;
-                        align-items: center;
-                        justify-content: center;
-                        background-image: url(\'http://localhost:8000/images-post/background.jpg\');
-                        background-size: cover;
-                        background-position: center;
-                        color: white;
-                        padding: 0;
-                        margin: 0;
-                        box-sizing: border-box;
-                    }
-                    h1 {
-                        color: #E68900;
-                    }
-                    p {
-                        width: 80%;
-                    }
-                    .container {
-                        width: 95%;
-                        display: flex;
-                        flex-direction: column;
-                        align-items: center;
-                        justify-content: start;
-                        gap: 20px;
-                        height: 95%;
-                    }
                     .button {
                         display: inline-block;
                         padding: 10px 20px;
@@ -187,21 +151,42 @@ class EmailService
                         text-decoration: none;
                         border-radius: 5px;
                         font-weight: bold;
+                        margin-top: 20px;
                     }
                     .button:hover {
                         background-color: #ff8c00;
                     }
+                    .content {
+                        margin-bottom: 50px;
+                    }
+                    img {
+                        display: block;
+                        margin: 40px auto 0;
+                        max-width: 100%;
+                    }
                 </style>
             </head>
             <body>
-                <div class="container">
-                    <h1>Mauvaise nouvelle, '.$username.' ! </h1>
-                    <p>Ton illustration a été consultée mais n\'a pas été approuvée par notre administrateur STARPUNK, pour la raison suivante :</p>
-                    <p>'.$reason.'</p>
-                    <p>Si tu souhaite en savoir plus, n\'hésite pas à nous contacter dans les 15 jours qui suivent la réception de cet e-mail (référence dossier : '.$ref.'</p>
-                    <a href="http://localhost:5173/contact" class="button">Page contact</a>
-                    <img src="http://localhost:8000/images-post/titre.svg" alt="titre" style="width: 50%; margin-top: 20px;">
-                </div>
+                <table width="100%" style="height: 100vh;">
+                    <tr>
+                        <td style="text-align: center;">
+                            <table style="width: 100%; height: 100%; background-image: url(\'https://res.cloudinary.com/dts3sgbe0/image/upload/v1733318704/background_unbvel.jpg\'); background-size: cover; background-position: center;">
+                                <tr>
+                                    <td style="text-align: center; height:100%; width:100%; padding: 20px;">
+                                        <h1 style="color:orange; margin-bottom: 50px; font-size:40px">Mauvaise nouvelle, '.$username.' ...</h1>
+                                        <p style="color:white; margin-bottom: 50px; font-size:20px">Un administrateur STARPUNK a consulté mais n\'a pas approuvé ton illustration, pour la raison suivante :</p>
+                                        <p style="color:white; margin-bottom: 50px; font-size:20px">'.$reason.'</p>
+                                        <p style="color:white; margin-bottom: 50px; font-size:20px">Si tu le souhaite, tu peux contacter nos équipes afin de faire appel (n° de dossier : '.$ref.'</p>
+                                        <div class="content">
+                                            <a href="http://localhost:5173/contact" style="color:white; font-size:20px" class="button">Page contact</a>
+                                        </div>
+                                        <img src="https://res.cloudinary.com/dts3sgbe0/image/upload/v1733322391/titlepng_pgmgoh.png" style="margin-top:40px">
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
             </body>
         </html>';
 

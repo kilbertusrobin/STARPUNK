@@ -9,6 +9,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Lexik\Bundle\JWTAuthenticationBundle\Services\JWTTokenManagerInterface;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+use App\Service\EmailService;
 use App\Service\ImageService;
 use App\Service\TokenService;
 use Doctrine\ORM\EntityManagerInterface;
@@ -21,13 +22,15 @@ class ImageController extends AbstractController
     private ImageService $imageService;
     private JWTTokenManagerInterface $jwtManager;
     private TokenService $tokenService;
+    private EmailService $emailService;
     private EntityManagerInterface $entityManager;
     private TokenStorageInterface $tokenStorage;
 
-    public function __construct(ImageService $imageService, TokenService $tokenService, JWTTokenManagerInterface $jwtManager, EntityManagerInterface $entityManager, TokenStorageInterface $tokenStorage)
+    public function __construct(ImageService $imageService, EmailService $emailService, TokenService $tokenService, JWTTokenManagerInterface $jwtManager, EntityManagerInterface $entityManager, TokenStorageInterface $tokenStorage)
     {
         $this->imageService = $imageService;
         $this->tokenService = $tokenService;
+        $this->emailService = $emailService;
         $this->jwtManager = $jwtManager;
         $this->entityManager = $entityManager;
         $this->tokenStorage = $tokenStorage;
@@ -60,6 +63,17 @@ class ImageController extends AbstractController
         }
     }
 
+    #[Route('/sendEmail', name: 'sendEmail', methods: ['GET'])]
+    public function sendEmail(): Response
+    {
+        try {
+            $this->emailService->sendTestEmail();
+            return new JsonResponse('Email envoyé', Response::HTTP_OK);
+        } catch (\Exception $e) {
+            return new JsonResponse($e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
+    }
+
     #[Route('/getOnlyUnalidated', name: 'getOnlyUnvalidated', methods: ['GET'])]
     public function getOnlyUnvalidated(): Response
     {
@@ -72,6 +86,8 @@ class ImageController extends AbstractController
             return new JsonResponse($e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
+
+
 
     #[Route('/validate', name: 'validate', methods: ['POST'])]
     public function validate(Request $request): Response
