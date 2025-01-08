@@ -48,6 +48,7 @@ function App() {
     return (
       <div className="background">
         <Menu />
+        
         {/* <Starpunk /> */}
         <div className="wrapperdivs">
           <div className="div1 svg-hover">

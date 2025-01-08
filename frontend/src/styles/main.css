@@ -6,7 +6,7 @@
     
   }
   body{
-    overflow-x: hidden;
+    /* overflow-x: hidden; */
     font-family: var(--font-family-base);
     color:white;
     margin: 0;
