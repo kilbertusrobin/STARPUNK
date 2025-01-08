@@ -32,6 +32,7 @@ img{
     justify-content: space-between;
     align-items: center;
     height: auto;
+    gap: 4vw;
 }
 .inside-header h3{
         white-space: nowrap;
@@ -39,9 +40,8 @@ img{
 
 
 .inside-header .logo{
-    width: 50vw;
-    padding-top: 6.5vh;
-    padding-left: 2.5vw;
+    width: 30vw;
+    padding-top: 6vh;
 }
 
 .inside-header .wrapper{
@@ -49,18 +49,18 @@ img{
     flex-direction:row;
     justify-content: space-around;
     height: 10vh;
-    padding-right: 8vh;
-    width: 100%;
+    margin-left: 2vw;
+    width: 60vw;
     align-items: center;
 }
 .inside-header .wrapper2{
     display: flex;
     flex-direction:row;
+    justify-content: space-around;
     height: 10vh;
-    width: 100%;
-    gap: 3vw;
-    padding-left:8vw;
     align-items: center;
+    margin-right: 2vw;
+    width: 60vw;
 
 }
 .container-header img{
