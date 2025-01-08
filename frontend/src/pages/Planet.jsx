@@ -6,12 +6,14 @@ import { useNavigate } from 'react-router-dom';
 import '../styles.js';
 import Starpunk from '../components/cards/starpunk.jsx';
 import Menu from '../components/menu/menu.jsx';
+import Haut from '../pages/Haut.jsx';
 
 function Planet() {
     
     return ( 
         <>
-        <Menu />
+        <Haut />
+        {/* <Menu /> */}
         <ThreeScene />
         </>
     );

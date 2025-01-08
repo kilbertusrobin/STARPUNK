@@ -1,20 +1,21 @@
 import React, { useState } from 'react';
 import '../../styles.js';
-
+import { Link } from 'react-router-dom';
 
 const Menu = () => {
- 
-
   return (
     <>
+    
       <div className="container-menu">
-        <img src="/images-post/MENU.svg" alt="Interface"/>
-            <div className="inside-menu">
-            <div className="wrapper-p">
+        <img src="/images-post/MENU.svg" alt="Interface" />
+        <div className="inside-menu">
+          <div className="wrapper-p">
+          <Link to="/">
             <div className="title-connect-div">
-          <img src="./images-post/TITRE.svg" className='title-connect' alt="" />
-          </div>
-          <a href="artistes"><p>Nos Artistes</p></a>
+                <img src="./images-post/TITRE.svg" className="title-connect" alt="" />
+            </div>
+            </Link>
+            <a href="#nos-artistes"><p>Nos Artistes</p></a>
             <a href="#poster-online"><p>Poster Online</p></a>
             <a href="#actus"><p>Actus</p></a>
             <a href="#contacts"><p>Contacts</p></a>
@@ -22,8 +23,8 @@ const Menu = () => {
             <a href="#en-savoir-plus"><p>En savoir plus</p></a>
             <a href="#mentions-legales"><p>Mentions Légales</p></a>
           </div>
-            </div>
         </div>
+      </div>
     </>
   );
 };

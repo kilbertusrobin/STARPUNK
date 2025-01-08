@@ -29,7 +29,7 @@ const ThreeScene = () => {
 
     const loader = new GLTFLoader();
     loader.load(
-      './wooden_stool_02_4k.gltf',
+      './Space_Sphere.gltf',
       (gltf) => {
         const model = gltf.scene;
         model.scale.set(10, 10, 10);
