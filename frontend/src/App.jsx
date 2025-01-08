@@ -10,6 +10,8 @@ import Register from './pages/Register.jsx';
 import { Provider } from 'react-redux';
 import store from './redux/adminStore';
 import Planet from './pages/Planet.jsx';
+import { Link } from 'react-router-dom';
+
 
 const router = createBrowserRouter([
   {
@@ -59,7 +61,10 @@ function App() {
 
           <div className="div2 svg-hover">
             <img src="./images-post/Interfaceorbital.svg"  alt="" />
-            <img src="./images-post/orbitalview.svg" className="titleOrbital" alt="" />
+            <Link to="/planete">
+              <img src="./images-post/orbitalview.svg" className="titleOrbital" alt="" />
+            </Link>    
+
           </div>
           <div className="wrapper-icon">
                     <div className="reseaux">
@@ -104,7 +109,7 @@ function App() {
           <span className="span"></span>
         </section>
         <div className="satelitte">
-          <img src="./images-post/alien.svg" alt="satelitte"/>
+          <img src="./images-post/Satellite.png" alt="satelitte"/>
         </div>
       </div>
     );
