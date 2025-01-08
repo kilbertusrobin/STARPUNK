@@ -16,9 +16,7 @@ const Artiste = () => {
     useEffect(() => {
         const getArtist = async () => {
             try {
-                console.log("Tentative de récupération avec uid:", uid);
                 const response = await client.getByUID('artiste', uid);
-                console.log("Données reçues:", response.data);
                 setArtist(response);
             } catch (error) {
                 console.error('Erreur lors de la récupération de l\'artiste:', error);
@@ -42,14 +40,13 @@ const Artiste = () => {
             <div style={{
                 height: `calc(100vh - ${SWIPER_HEIGHT}px)`,
                 overflow: 'auto',
-                border: '1px solid white',
                 display: 'flex',
                 flexDirection: 'row',
                 justifyContent: 'space-around',
                 alignItems: 'center',
             }}>
                 
-                <div style={{width: '50%', height:'100%', padding: '20px', display:'flex', flexDirection:'column', border: '1px solid white'}}>
+                <div style={{width: '50%', height:'100%', padding: '0 60px 0 60px', display:'flex', flexDirection:'column', justifyContent:'center', gap:'20px'}} >
                     <div className="artistname" style={{width:'fit-content', cursor: 'pointer'}}>
                         <PrismicRichText field={artist.data.artistename} />
                     </div>
