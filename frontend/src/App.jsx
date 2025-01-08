@@ -7,8 +7,10 @@ import Menu from './components/menu/menu.jsx';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Connect from './pages/Connect';
 import Register from './pages/Register.jsx';
+import Artiste from './pages/Artiste.jsx';
 import { Provider } from 'react-redux';
 import store from './redux/adminStore';
+import Artistes from './pages/Artistes.jsx';
 import Planet from './pages/Planet.jsx';
 
 const router = createBrowserRouter([
@@ -31,6 +33,14 @@ const router = createBrowserRouter([
   {
     path: '/admin',
     element: <Admin />,
+  },
+  {
+    path: '/artistes',
+    element: <Artistes />,
+  }, 
+  {
+    path: '/artistes/:uid',
+    element: <Artiste />,
   }
 ]);
 
