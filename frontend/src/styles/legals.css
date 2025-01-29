@@ -1,0 +1,64 @@
+.legals-container{
+    border-radius: 15px;
+    border: 1px solid orange;
+    max-height: 75vh;
+    max-width: 1200px;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 10vh;
+    padding: 30px;
+}
+
+.return{
+    position:absolute;
+    bottom: 20px;
+    width: 400px;
+    height: 50px;
+    border:2px solid orange;
+    border-radius: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.scroll-indicator{
+    position:absolute;
+    top:50vh;
+    right:5vw;
+}
+
+.return:hover{
+    font-weight: bold;
+}
+
+
+.legals:hover{
+    background-color: unset;
+    transition:unset;
+    border-radius: unset;
+}
+
+.mentions-content{
+    width: auto;
+    height: auto;
+    overflow: auto;
+}
+
+.legals-title{
+    z-index: 1;
+    background-color: black;
+    color: white;
+    position: absolute;
+    padding: 0px 10px;
+    top: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.legals-scroll {
+    max-height: calc(75vh - 40px); /* Ajustez cette valeur selon vos besoins */
+    overflow-y: auto;
+    scrollbar-width: thin;
+  }

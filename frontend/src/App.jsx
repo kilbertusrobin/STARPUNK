@@ -13,6 +13,7 @@ import store from './redux/adminStore';
 import Artistes from './pages/Artistes.jsx';
 import Planet from './pages/Planet.jsx';
 import { Link } from 'react-router-dom';
+import MentionsLegales from './pages/MentionsLegales.jsx';
 
 
 const router = createBrowserRouter([
@@ -23,6 +24,10 @@ const router = createBrowserRouter([
   {
     path: '/login',
     element: <Connect />,
+  },
+  {
+    path: '/mentions-legales',
+    element: <MentionsLegales />,
   },
   {
     path: '/register',
