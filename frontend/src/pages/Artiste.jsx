@@ -139,6 +139,14 @@ const Artiste = () => {
                     transform: translateX(-50%);
                     padding: 2px;
                     text-align: center;
+                    opacity: 0;
+                    visibility: hidden;
+                    transition: opacity 0.3s ease, visibility 0.3s ease;
+                }
+
+                .parallelogram:hover .illuTitle {
+                    opacity: 1;
+                    visibility: visible;
                 }
 
                 .swiper-button-next, .swiper-button-prev {
