@@ -12,7 +12,7 @@ img{
 
 .container-header{
     z-index: 100000;
-    position: relative;
+    position: fixed;
     width: 100%;
     height: auto;
     padding: 0;

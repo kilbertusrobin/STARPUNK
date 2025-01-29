@@ -45,7 +45,7 @@ const modalStyles = {
     fontSize: '18px',
     fontWeight: 'bold',
     margin: '10px 0',
-    color: '#000000'
+    color : '#000000'
   }
 };
 
@@ -85,7 +85,7 @@ const ThreeScene = () => {
       0.1,
       1000
     );
-    camera.position.set(0, 0, 12);
+    camera.position.set(0, 0, 8);
     camera.lookAt(0, 0, 0);
     cameraRef.current = camera;
 
@@ -170,31 +170,33 @@ const ThreeScene = () => {
 
         const pointData = [
           { 
-            id: 1, 
-            position: [0.9, -0.40, 0.45],  
-            info: "Tour", 
-            color: 0xff0000 
+              id: 1, 
+              position: [0.9, -0.40, -0.4],  
+              info: "Tour", 
+              color: 0xff0000 
           },
           { 
-            id: 2, 
-            position: [0.4, 0.5, 1],  
-            info: "Fleur", 
-            color: 0x00ff00 
+              id: 2, 
+              position: [0.6, -0.4, 0.8],  
+              info: "Fleur", 
+              color: 0x00ff00 
           },
           { 
-            id: 4, 
-            position: [-1.1, 0.2, -0.3],
-            info: "Pyramide", 
-            color: 0xffff00 
+              id: 4, 
+              position: [-1.05, 0.3, 0.2],
+              info: "Pyramide", 
+              color: 0xffff00 
           },
           { 
-            id: 5, 
-            position: [2, 1.1, -0.5],  
-            info: "Satellite", 
-            color: 0x00000000,
-            invisible: true
-          },
+           id: 5, 
+           position: [2, 0.53, 1.15],  
+           info: "Satellite", 
+           color: 0x00000000,
+          invisible: true
+       },
         ];
+
+          
 
         pointData.forEach((data) => {
           const geometry = new THREE.SphereGeometry(data.invisible ? 0.1 : 0.05, 32, 32);
@@ -298,7 +300,7 @@ const ThreeScene = () => {
           alt="Rob & Masti"
           style={modalStyles.image}
         />
-        <p style={modalStyles.text}>Rob & Masti à l'heure de leurs départ pour l'univers Starpunk</p>
+        <p style={modalStyles.text}>Rob & Masti se préparant avant le décollage vers l'univers Starpunk</p>
       </Modal>
     </>
   );
