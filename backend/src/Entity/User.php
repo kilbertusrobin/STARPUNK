@@ -55,11 +55,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(targetEntity: Comment::class, mappedBy: 'author')]
     private Collection $comments;
 
+    /**
+     * @var Collection<int, RefreshToken>
+     */
+    #[ORM\OneToMany(targetEntity: RefreshToken::class, mappedBy: 'user')]
+    private Collection $refreshTokens;
+
     public function __construct()
     {
         $this->images = new ArrayCollection();
         $this->likes = new ArrayCollection();
         $this->comments = new ArrayCollection();
+        $this->refreshTokens = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -226,6 +233,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($comment->getAuthor() === $this) {
                 $comment->setAuthor(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, RefreshToken>
+     */
+    public function getRefreshTokens(): Collection
+    {
+        return $this->refreshTokens;
+    }
+
+    public function addRefreshToken(RefreshToken $refreshToken): static
+    {
+        if (!$this->refreshTokens->contains($refreshToken)) {
+            $this->refreshTokens->add($refreshToken);
+            $refreshToken->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRefreshToken(RefreshToken $refreshToken): static
+    {
+        if ($this->refreshTokens->removeElement($refreshToken)) {
+            // set the owning side to null (unless already changed)
+            if ($refreshToken->getUser() === $this) {
+                $refreshToken->setUser(null);
             }
         }
 

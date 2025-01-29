@@ -1,0 +1,15 @@
+meta {
+  name: testRefreshToken
+  type: http
+  seq: 4
+}
+
+get {
+  url: http://localhost:8000/api/users/testRefreshToken
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE3MzgxNDEwNTAsImV4cCI6MTczODE0NDY1MCwicm9sZXMiOlsiUk9MRV9VU0VSIiwiUk9MRV9BRE1JTiJdLCJlbWFpbCI6IlJvYmxlWm9iQHpvYi5jb20ifQ.Fcwg0Mu8VxHBoHkmO0wmOBs59wlJwVaVRXsjeg3ku2NWCm3S1xYROL6Kf8nki8RwSaX4CbKN8fQTDgiSsUaeDUkgp69ogytXedK-sEQxV_viUUPPYiFmzZk7JExrZsuVkvgo0wTjNUPtx83r-6g6KaiUpAn1k1QVCCZzMKT8pZAAGxkIISD0W1r0OcOaGwpw1N2sfque1Qank5itY7HfWXkozl1cWgx76sy1BIdh8LCA5fReMWD-UCm0C_8DSSvVOKXCFnVuWu6hs0oMG4sO9dHINhv3Ou6dxRXaWqnAlA4Bf4ykt4Gxi6qQ2ck8MA2GfH5Y98TJY7dr-VzWlm31Yw
+}

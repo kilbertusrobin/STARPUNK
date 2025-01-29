@@ -1,6 +1,7 @@
-<?php 
+<?php
 namespace App\Service;
 
+use App\Entity\RefreshToken;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
@@ -37,5 +38,70 @@ class TokenService
         }
 
         return $user;
+    }
+
+    public function generateRefreshToken(User $user): RefreshToken
+    {
+        $existingToken = $this->entityManager->getRepository(RefreshToken::class)
+            ->createQueryBuilder('rt')
+            ->where('rt.user = :user')
+            ->andWhere('rt.expiresAt > :now')
+            ->setParameter('user', $user)
+            ->setParameter('now', new \DateTimeImmutable())
+            ->getQuery()
+            ->getOneOrNullResult();
+    
+        if ($existingToken) {
+            return $existingToken;
+        }
+    
+        $this->revokeAllUserTokens($user);
+    
+        $refreshToken = new RefreshToken();
+        $token = bin2hex(random_bytes(64));
+        $refreshToken->setToken($token);
+        $refreshToken->setExpiresAt(new \DateTimeImmutable('+1 month'));
+        $refreshToken->setUser($user);
+    
+        $this->entityManager->persist($refreshToken);
+        $this->entityManager->flush();
+    
+        return $refreshToken;
+    }
+
+    public function refreshAccessToken(string $refreshToken): JsonResponse
+    {
+        $refreshTokenEntity = $this->entityManager->getRepository(RefreshToken::class)->findOneBy(['token' => $refreshToken]);
+
+        if (!$refreshTokenEntity) {
+            return new JsonResponse("Invalid refresh token.", Response::HTTP_UNAUTHORIZED);
+        }
+
+        if ($refreshTokenEntity->getExpiresAt() < new \DateTimeImmutable()) {
+            return new JsonResponse("Refresh token expired.", Response::HTTP_UNAUTHORIZED);
+        }
+
+        $user = $refreshTokenEntity->getUser();
+        $newJwt = $this->jwtManager->create($user);
+
+        $newRefreshToken = $this->generateRefreshToken($user);
+
+        return new JsonResponse([
+            'access_token' => $newJwt,
+            'refresh_token' => $newRefreshToken->getToken(),
+        ]);
+    }
+
+    public function revokeAllUserTokens(User $user): void
+    {
+        $userRefreshTokens = $this->entityManager
+            ->getRepository(RefreshToken::class)
+            ->findBy(['user' => $user]);
+            
+        foreach ($userRefreshTokens as $token) {
+            $this->entityManager->remove($token);
+        }
+        
+        $this->entityManager->flush();
     }
 }

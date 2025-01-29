@@ -9,16 +9,19 @@ use App\Controller\ApiController;
 use Symfony\Component\HttpFoundation\Request; 
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
+use App\Service\TokenService;
 use Symfony\Component\Routing\Annotation\Route;
 
 #[Route('/api/users', name: 'api-users-')]
 class UserController extends ApiController
 {
     private UserService $userService;
+    private TokenService $tokenService;
 
-    public function __construct(UserService $userService)
+    public function __construct(UserService $userService, TokenService $tokenService)
     {
         $this->userService = $userService;
+        $this->tokenService = $tokenService;
     }
     
     #[Route('', name: 'list', methods: ['GET'])]
@@ -57,4 +60,21 @@ class UserController extends ApiController
             return new JsonResponse($e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
+
+    #[Route('/testRefreshToken', name: 'testRefreshToken', methods: ['GET'])] 
+    public function testRefreshToken(): Response
+    {
+        try {
+            $user = $this->tokenService->getUserFromToken();
+            $refreshToken = $this->tokenService->generateRefreshToken($user);
+            
+            return new JsonResponse([
+                'token' => $refreshToken->getToken(),
+                'expiresAt' => $refreshToken->getExpiresAt()->format('Y-m-d H:i:s'),
+            ]);
+        } catch (\Exception $e) {
+            return new JsonResponse($e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
+    }
+    
 }
