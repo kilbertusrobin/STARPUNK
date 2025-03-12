@@ -29,7 +29,7 @@ class CommentFixtures extends Fixture implements DependentFixtureInterface
             $comment->setImage($image);
 
             $comment->setContent($faker->sentence());
-            $comment->setCreatedAt($faker->dateTimeBetween('-6 months'));
+            $comment->setCreatedAt(\DateTimeImmutable::createFromMutable($faker->dateTimeBetween('-6 months')));
 
 
             $manager->persist($comment);

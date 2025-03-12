@@ -17,7 +17,8 @@ class ArticleFixtures extends Fixture
             $article = new Article();
             $article->setTitle($faker->sentence(4));
             $article->setContent($faker->text(200));
-            $article->setCreatedAt($faker->dateTimeBetween('-6 months'));
+            $article->setCreatedAt(\DateTimeImmutable::createFromMutable($faker->dateTimeBetween('-6 months')));
+            $article->setAuthor($faker->name);
             
             $manager->persist($article);
         }
