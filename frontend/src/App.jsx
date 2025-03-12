@@ -12,6 +12,7 @@ import { Provider } from 'react-redux';
 import store from './redux/adminStore';
 import Artistes from './pages/Artistes.jsx';
 import Planet from './pages/Planet.jsx';
+import PlanetDetail from './pages/PlanetDetail.jsx'; // Importez votre nouvelle page de détail
 import { Link } from 'react-router-dom';
 import MentionsLegales from './pages/MentionsLegales.jsx';
 
@@ -36,6 +37,10 @@ const router = createBrowserRouter([
   {
     path: '/planete',
     element: <Planet />,
+  },
+  {
+    path: '/planetes',
+    element: <PlanetDetail />,
   },
   {
     path: '/admin',

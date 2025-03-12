@@ -6,6 +6,6 @@ import './styles/menu.css';
 import './styles/connect.css';
 import './styles/shooting.css';
 import './styles/legals.css';
-
+import './styles/popup.css';
 
 export default {};
