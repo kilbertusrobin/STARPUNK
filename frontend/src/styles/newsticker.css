@@ -1,74 +1,131 @@
+/* CSS pour NewsTicker avec tiroir élégant */
+
 .news-ticker {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    color: white;
-    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
-    height: 100px;
-  }
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  color: white;
+  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+  height: 100px;
+  transition: transform 0.3s ease;
+  background-color: rgba(118, 118, 118, 0.274);
+  z-index: 100;
+}
 
-  .news-ticker-wrapper {
-    display: flex;
-    align-items: center;
-    max-width: 100%;
-    margin: 0 auto;
-    position: relative;
-    height: 100px;
-  }
+/* État quand le tiroir est fermé - sort complètement de l'écran */
+.news-ticker.closed {
+  transform: translateY(100%);
+}
 
-  .ticker-image-left,
+/* État quand le tiroir est ouvert */
+.news-ticker.open {
+  transform: translateY(0);
+}
+
+/* Flèche élégante pour ouvrir/fermer */
+.toggle-arrow {
+  position: absolute;
+  top: -30px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 50px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 5px 5px 0 0;
+  cursor: pointer;
+  color: white;
+  pointer-events: auto;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+  transition: background-color 0.2s;
+  backdrop-filter: blur(5px);
+}
+
+.toggle-arrow:hover {
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
+.news-ticker-wrapper {
+  display: flex;
+  align-items: center;
+  max-width: 100%;
+  margin: 0 auto;
+  position: relative;
+  height: 100px;
+}
+
+.ticker-image-left,
+.ticker-image-right {
+  height: 100px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ticker-image-left img,
+.ticker-image-right img {
+  width: 300px;
+  height: 100px;
+  object-fit: cover;
+}
+
+.news-ticker-container {
+  flex-grow: 1;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  padding: 25px 20px 25px 50px;
+  overflow: hidden;
+  margin-bottom: -1px;
+}
+
+.news-ticker-content {
+  display: flex;
+  align-items: center;
+  transform: translateX(0);
+  transition: transform 0.5s ease-in-out;
+}
+
+.news-ticker-content.slide-out {
+  transform: translateX(-100%);
+}
+
+.label {
+  display: inline-block;
+  font-weight: bold;
+  margin-right: 10px;
+  white-space: nowrap;
+  padding: 5px 10px;
+  color: white;
+  text-align: center;
+}
+
+.text {
+  font-size: 1.1em;
+  white-space: nowrap;
+}
+
+/* Media query pour mobile */
+@media screen and (max-width: 1024px) {
   .ticker-image-right {
-    height: 100px;
-    flex-shrink: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    display: none;
   }
-
-  .ticker-image-left img,
-  .ticker-image-right img {
-    width: 300px;
-    height: 100px;
-    object-fit: cover;
-  }
-
-  .news-ticker-container {
-    flex-grow: 1;
-    height:100%;
-    display: flex;
-    align-items: center;
-    padding: 25px 20px 25px 50px;
-    overflow: hidden;
-    background-color: rgba(118, 118, 118, 0.274);
-    margin-bottom: -1px;
-
-  }
-
-  .news-ticker-content {
-    display: flex;
-    align-items: center;
-    transform: translateX(0);
-    transition: transform 0.5s ease-in-out;
-  }
-
-  .news-ticker-content.slide-out {
-    transform: translateX(-100%);
-  }
-
-  .label {
-    font-weight: bold;
-    margin-right: 10px;
-    white-space: nowrap;
-  }
-
+  
   .text {
-    font-size: 1.1em;
-    white-space: nowrap;
+    white-space: normal;
   }
-
-  .test111 {
-    width: auto;
-    background-color: blue;
-    height: 100%;
+  
+  .news-ticker-container {
+    padding: 20px 10px;
   }
+  
+  .toggle-arrow {
+    width: 40px;
+    height: 25px;
+    top: -25px;
+  }
+}
