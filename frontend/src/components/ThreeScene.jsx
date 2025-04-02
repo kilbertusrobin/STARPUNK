@@ -245,7 +245,7 @@ const ThreeScene = () => {
     // Chargement du modèle
     const loader = new GLTFLoader();
     loader.load(
-      './Solarpunk_planet.gltf',
+      './Cyberpunk_planet.gltf',
       (gltf) => {
         const model = gltf.scene;
         
