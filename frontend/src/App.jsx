@@ -15,6 +15,7 @@ import Planet from './pages/Planet.jsx';
 import PlanetDetail from './pages/PlanetDetail.jsx'; // Importez votre nouvelle page de détail
 import { Link } from 'react-router-dom';
 import MentionsLegales from './pages/MentionsLegales.jsx';
+import ArtisteTest from './pages/ArtisteTest.jsx';
 
 
 const router = createBrowserRouter([
@@ -53,7 +54,12 @@ const router = createBrowserRouter([
   {
     path: '/artistes/:uid',
     element: <Artiste />,
+  },
+  {
+    path: '/artistetest',
+    element: <ArtisteTest />,
   }
+  
 ]);
 
 function App() {

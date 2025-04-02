@@ -45,7 +45,6 @@ function MentionsLegales() {
             Les présentes mentions légales sont soumises à la loi française. En cas de litige et à défaut d'accord amiable, le litige sera porté devant les tribunaux français conformément aux règles de compétence en vigueur.
             <br />
             <br />
-            N'hésitez pas à compléter et personnaliser ces mentions selon votre situation (numéro CNIL si déclaration de fichiers, conditions générales de vente, crédits photos, lien vers formulaire de contact pour exercer les droits RGPD, consentement pour cookies, etc.). Faites les relire par un avocat pour vous assurer qu'elles sont exhaustives et conformes à la réglementation en vigueur. Les mentions légales sont obligatoires pour tout site internet.
           </p>
           </p>
         </div>

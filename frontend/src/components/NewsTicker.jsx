@@ -6,6 +6,7 @@ const NewsTicker = () => {
   const [newsItems, setNewsItems] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false); 
 
   useEffect(() => {
     const fetchNews = async () => {
@@ -56,13 +57,48 @@ const NewsTicker = () => {
 
   const currentItem = newsItems[currentIndex];
 
+  // Fonction pour formater "ALERTE INFO" avec un br après 6 caractères
+  const formatLabel = (text) => {
+    if (!text) return '';
+    
+    const result = [];
+    for (let i = 0; i < text.length; i += 6) {
+      const chunk = text.slice(i, i + 6);
+      result.push(
+        <React.Fragment key={i}>
+          {chunk}
+          {i + 6 < text.length && <br />}
+        </React.Fragment>
+      );
+    }
+    
+    return result;
+  };
+
+  const toggleDrawer = () => {
+    setIsDrawerOpen(!isDrawerOpen);
+  };
+
   return (
-    <div className="news-ticker">
+    <div className={`news-ticker ${isDrawerOpen ? 'open' : 'closed'}`}>
+      {/* Flèche élégante pour ouvrir/fermer le tiroir */}
+      <div className="toggle-arrow" onClick={toggleDrawer}>
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path 
+            d={isDrawerOpen ? "M7 14l5-5 5 5" : "M7 10l5 5 5-5"} 
+            stroke="currentColor" 
+            strokeWidth="2" 
+            strokeLinecap="round" 
+            strokeLinejoin="round"
+          />
+        </svg>
+      </div>
+      
+      {/* Contenu du news ticker */}
       <div className="news-ticker-wrapper">
         <div className="news-ticker-container">
-          {/* N'ajoute la classe d'animation que s'il y a plus d'un item */}
           <div className={`news-ticker-content ${newsItems.length > 1 && isAnimating ? 'slide-out' : ''}`}>
-            <span className="label">ALERTE INFO</span>
+            <span className="label">{formatLabel("ALERTE INFO")}</span>
             <span className="text">{currentItem.text}</span>
           </div>
         </div>

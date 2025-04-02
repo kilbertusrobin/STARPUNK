@@ -137,6 +137,28 @@ const PlanetSelector = () => {
   const [isTransitioning, setIsTransitioning] = useState(false);
   const planetsRef = useRef([]);
   
+  // Fonction pour déterminer si on est sur mobile
+  const isMobile = () => {
+    return window.innerWidth <= 768; // Considère les écrans <= 768px comme mobiles
+  };
+  
+  // État pour suivre si l'écran est mobile
+  const [mobile, setMobile] = useState(isMobile());
+  
+  // Obtenir l'échelle planétaire en fonction de l'appareil
+  const getPlanetScale = () => {
+    return mobile ? 0.5 : 0.8; // 50% sur mobile, 80% sur desktop
+  };
+  
+  // Obtenir les échelles min/max pour la pulsation en fonction de l'appareil
+  const getPulsationScales = () => {
+    const baseScale = getPlanetScale();
+    return {
+      min: baseScale * 0.98, // 98% de l'échelle de base
+      max: baseScale * 1.02  // 102% de l'échelle de base
+    };
+  };
+  
   // Définition des planètes - utilisation du même modèle mais avec différentes informations/couleurs
   const planets = [
     {
@@ -330,7 +352,10 @@ const PlanetSelector = () => {
         planets.forEach((planetData, planetIndex) => {
           // Cloner le modèle pour chaque planète
           const model = originalModel.clone();
-          model.scale.set(0.8, 0.8, 0.8); // Taille réduite à 80%
+          
+          // Utiliser l'échelle appropriée selon l'appareil
+          const scale = getPlanetScale();
+          model.scale.set(scale, scale, scale);
           
           const box = new THREE.Box3().setFromObject(model);
           const center = box.getCenter(new THREE.Vector3());
@@ -416,6 +441,20 @@ const PlanetSelector = () => {
 
     // Gestion du redimensionnement
     const handleResize = () => {
+      const newMobileState = isMobile();
+      if (newMobileState !== mobile) {
+        setMobile(newMobileState);
+        
+        // Mettre à jour l'échelle de toutes les planètes si la taille d'écran change
+        const newScale = newMobileState ? 0.56 : 0.7;
+        planetsRef.current.forEach(planet => {
+          if (planet) {
+            planet.scale.set(newScale, newScale, newScale);
+          }
+        });
+      }
+      
+      // Mise à jour existante pour l'aspect de la caméra
       camera.aspect = window.innerWidth / window.innerHeight;
       camera.updateProjectionMatrix();
       renderer.setSize(window.innerWidth, window.innerHeight);
@@ -425,16 +464,16 @@ const PlanetSelector = () => {
 
     // Effet d'ondulation pour la planète
     const addPlanetPulsation = () => {
-      const minScale = 0.78; // Ajusté pour la taille réduite
-      const maxScale = 0.82; // Ajusté pour la taille réduite
-      const duration = 3000; // ms
-      
       const pulsate = () => {
         const currentPlanet = planetsRef.current[currentPlanetIndex];
         if (currentPlanet) {
+          // Obtenir les échelles min/max actualisées
+          const { min, max } = getPulsationScales();
+          const duration = 3000;
+          
           const time = Date.now() % duration;
           const progress = time / duration;
-          const scale = minScale + (Math.sin(progress * Math.PI * 2) + 1) / 2 * (maxScale - minScale);
+          const scale = min + (Math.sin(progress * Math.PI * 2) + 1) / 2 * (max - min);
           
           currentPlanet.scale.set(scale, scale, scale);
         }
