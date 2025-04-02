@@ -12,20 +12,23 @@ function MentionsLegales() {
           <p className="legals">
           <p className="legals">
             <strong>Éditeur du site</strong><br />
-            [Nom de la société]<br />
-            [Forme juridique] au capital de [montant] euros<br />
-            [Adresse]<br />
-            [Code postal] [Ville]<br />
-            Téléphone : [numéro]<br />
-            Email : [adresse email]<br />
+            STARPUNK<br />
+            contact@starpunk.art<br />
             <br />
-            <strong>Directeur de la publication</strong> : [Nom]<br />
+            <strong>Développeurs du site</strong> :<br />
+            RAULT Matis<br/>
+            <a style={{ textDecoration: 'underline' }} href='https://matisrault.com' target="_blank" rel="noopener noreferrer">matisrault.com</a><br />
+            <a style={{ textDecoration: 'underline' }} href='https://www.linkedin.com/in/matis-rault-6b398427b/' target="_blank" rel="noopener noreferrer">Linkedin</a><br />
+            <br/>
+            KILBERTUS Robin <br/>
+            <a style={{ textDecoration: 'underline' }} href='https://robinkilbertus.com' target="_blank" rel="noopener noreferrer">robinkilbertus.com</a><br />
+            <a style={{ textDecoration: 'underline' }} href='https://www.linkedin.com/in/robin-kilbertus-460598281/' target="_blank" rel="noopener noreferrer">Linkedin</a><br />
             <br />
             <strong>Hébergeur</strong><br />
-            [Nom de l'hébergeur]<br />
-            [Adresse]<br />
-            [Code postal] [Ville]<br />
-            Téléphone : [numéro]<br />
+            Vercel, Inc.<br />
+            340 S Lemon Ave #4133<br />
+            Walnut, CA 91789, États-Unis<br />
+            Téléphone : +1 (800) 541-9638<br />
             <br />
             <strong>Données personnelles</strong><br />
             Les informations recueillies font l'objet d'un traitement informatique destiné à [finalité]. Le destinataire des données est : [destinataire]. Conformément à la loi « informatique et libertés » du 6 janvier 1978 modifiée, vous bénéficiez d'un droit d'accès et de rectification aux informations qui vous concernent. Si vous souhaitez exercer ce droit et obtenir communication des informations vous concernant, veuillez vous adresser à [service concerné et adresse].
