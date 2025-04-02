@@ -90,7 +90,7 @@
 }
 
 body {
-    background-image: url('./images-post/background.jpg');
+    background-image: url('/images-post/background.jpg');
     background-size: cover; 
     background-position: center;
 }

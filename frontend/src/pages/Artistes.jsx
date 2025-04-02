@@ -31,7 +31,7 @@ const Artistes = () => {
             gridTemplateColumns: 'repeat(3, 1fr)',
             gap: '20px',
             padding: '20px',
-            backgroundImage : `url("./images-post/background.jpg")`,
+            backgroundImage : `url("/images-post/background.jpg")`,
             backgroundSize: 'cover',
             backgroundPosition: 'center',
             backgroundRepeat: 'no-repeat',
