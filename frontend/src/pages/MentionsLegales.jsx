@@ -17,13 +17,17 @@ function MentionsLegales() {
             <br />
             <strong>Développeurs du site</strong> :<br />
             RAULT Matis<br/>
+            </p>
             <a style={{ textDecoration: 'underline' }} href='https://matisrault.com' target="_blank" rel="noopener noreferrer">matisrault.com</a><br />
             <a style={{ textDecoration: 'underline' }} href='https://www.linkedin.com/in/matis-rault-6b398427b/' target="_blank" rel="noopener noreferrer">Linkedin</a><br />
             <br/>
+            <p>
             KILBERTUS Robin <br/>
+            </p>
             <a style={{ textDecoration: 'underline' }} href='https://robinkilbertus.com' target="_blank" rel="noopener noreferrer">robinkilbertus.com</a><br />
             <a style={{ textDecoration: 'underline' }} href='https://www.linkedin.com/in/robin-kilbertus-460598281/' target="_blank" rel="noopener noreferrer">Linkedin</a><br />
             <br />
+            <p>
             <strong>Hébergeur</strong><br />
             Vercel, Inc.<br />
             340 S Lemon Ave #4133<br />
