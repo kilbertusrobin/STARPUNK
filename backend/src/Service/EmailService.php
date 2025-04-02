@@ -68,7 +68,7 @@ class EmailService
         </html>';
     
         $email = (new Email())
-            ->from('starpunk33000@gmail.com')
+            ->from('contact@starpunk.art')
             ->to('rbx.fay@gmail.com')
             ->subject('Besoin de validation')
             ->html($htmlContent);
@@ -130,7 +130,7 @@ class EmailService
         </html>';
 
         $email = (new Email())
-            ->from('supervisor@starpunk.com')
+            ->from('contact@starpunk.art')
             ->to($email)
             ->subject('Validation de ton illustration')
             ->html($htmlContent);
@@ -191,7 +191,7 @@ class EmailService
         </html>';
 
         $email = (new Email())
-            ->from('supervisor@starpunk.com')
+            ->from('contact@starpunk.art')
             ->to($email)
             ->subject('Validation de ton illustration')
             ->html($htmlContent);
